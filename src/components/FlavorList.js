@@ -1,45 +1,29 @@
-// src/components/FlavorList.js
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const FlavorList = () => {
     const { ib, date } = useParams();
-    const [flavors, setFlavors] = useState([]);
-
-    useEffect(() => {
-        axios.get('/api/folders')
-            .then(response => setFlavors(response.data[ib][date]))
-            .catch(error => console.error('Error fetching data:', error));
-    }, [ib, date]);
+    const navigate = useNavigate();
+    const flavors = ["GPU", "DEFAULT"];  // Example flavors
 
     return (
-        <div>
-            <h3>Flavors for {ib} on {date}</h3>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Flavors</TableCell>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Flavor</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {flavors.map((flavor) => (
+                        <TableRow key={flavor} onClick={() => navigate(`/results/${flavor}`)}>
+                            <TableCell>{flavor}</TableCell>
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {flavors.map(flavor => (
-                            <TableRow key={flavor}>
-                                <TableCell>{flavor}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 

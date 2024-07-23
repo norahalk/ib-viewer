@@ -1,46 +1,28 @@
-// src/components/IBList.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const IBList = () => {
-    const [ibData, setIbData] = useState({});
-
-    useEffect(() => {
-        axios.get('/api/folders')
-            .then(response => setIbData(response.data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    const navigate = useNavigate();
+    const ibs = ["CMSSW_14_1", "CMSSW_14_2"];  // Example IBs
 
     return (
-        <div>
-            <h1>IBs</h1>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>IBs</TableCell>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>IB</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {ibs.map((ib) => (
+                        <TableRow key={ib} onClick={() => navigate(`/dates/${ib}`)}>
+                            <TableCell>{ib}</TableCell>
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.keys(ibData).map(ib => (
-                            <TableRow key={ib}>
-                                <TableCell>
-                                    <Link to={`/dates/${ib}`}>{ib}</Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 

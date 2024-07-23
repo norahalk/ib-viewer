@@ -1,47 +1,29 @@
-// src/components/DateList.js
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const DateList = () => {
     const { ib } = useParams();
-    const [dates, setDates] = useState({});
-
-    useEffect(() => {
-        axios.get('/api/folders')
-            .then(response => setDates(response.data[ib]))
-            .catch(error => console.error('Error fetching data:', error));
-    }, [ib]);
+    const navigate = useNavigate();
+    const dates = ["2024-07-09-1100", "2024-07-10-1100"];  // Example dates
 
     return (
-        <div>
-            <h2>Dates for {ib}</h2>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Dates</TableCell>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Date</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {dates.map((date) => (
+                        <TableRow key={date} onClick={() => navigate(`/flavors/${ib}/${date}`)}>
+                            <TableCell>{date}</TableCell>
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.keys(dates).map(date => (
-                            <TableRow key={date}>
-                                <TableCell>
-                                    <Link to={`/flavors/${ib}/${date}`}>{date}</Link>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 
