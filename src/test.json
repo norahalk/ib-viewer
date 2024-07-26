@@ -1,0 +1,45 @@
+{
+    "OpenBLAS": {
+      "description": "OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. The project is supported by the Lab of Parallel Software and Computational Science, ISCAS. http://www.rdcps.ac.cn openblas 0.3.21 6.fc39 x86_64 35 k openblas-0.3.21-6.fc39.src.rpm fedora OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. The project is supported by the Lab of Parallel Software and Computational Science, ISCAS. http://www.rdcps.ac.cn",
+      "summary": "An optimized BLAS library based on GotoBLAS2",
+      "license": "BSD",
+      "URL": "https://github.com/xianyi/OpenBLAS/"
+    },
+    "abseil-cpp": {
+      "description": "Abseil is an open-source collection of C++ library code designed to augment the C++ standard library. The Abseil library code is collected from",
+      "summary": "C++ Common Libraries",
+      "license": "Apache-2.0 AND LicenseRef-Fedora-Public-Domain",
+      "URL": "https://abseil.io"
+    },
+    "boost": {
+      "description": "Boost provides free peer-reviewed portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library, in the hopes of establishing existing practice for extensions and providing reference implementations so that the Boost libraries are suitable for eventual standardization. (Some of the libraries have already been included in the C++ 2011 standard and others have been proposed to the C++ Standards Committee for inclusion in future standards.) boost 1.81.0 11.fc39 x86_64 9.6 k boost-1.81.0-11.fc39.src.rpm updates Boost provides free peer-reviewed portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library, in the hopes of establishing existing practice for extensions and providing reference implementations so that the Boost libraries are suitable for eventual standardization. (Some of the libraries have already been included in the C++ 2011 standard and others have been proposed to the C++ Standards Committee for inclusion in future standards.)",
+      "summary": "The free peer-reviewed portable C++ source libraries",
+      "license": "BSL-1.0 AND MIT AND Python-2.0.1",
+      "URL": "http://www.boost.org"
+    },
+    "c-ares": {
+      "description": "c-ares is a C library that performs DNS requests and name resolves asynchronously. c-ares is a fork of the library named ares, written by Greg Hudson at MIT. Available Packages c-ares 1.28.1 1.fc39 i686 168 k c-ares-1.28.1-1.fc39.src.rpm updates c-ares is a C library that performs DNS requests and name resolves asynchronously. c-ares is a fork of the library named ares, written by Greg Hudson at MIT.",
+      "summary": "A library that performs asynchronous DNS operations",
+      "license": "MIT",
+      "URL": "http://c-ares.org/"
+    },
+    "cmake": {
+      "description": "CMake is used to control the software compilation process using simple platform and compiler independent configuration files. CMake generates native makefiles and workspaces that can be used in the compiler environment of your choice. CMake is quite sophisticated: it is possible to support complex environments requiring system configuration, preprocessor generation, code generation, and template instantiation. cmake 3.27.7 1.fc39 x86_64 8.0 M cmake-3.27.7-1.fc39.src.rpm fedora CMake is used to control the software compilation process using simple platform and compiler independent configuration files. CMake generates native makefiles and workspaces that can be used in the compiler environment of your choice. CMake is quite sophisticated: it is possible to support complex environments requiring system configuration, preprocessor generation, code generation, and template instantiation.",
+      "summary": "Cross-platform make system",
+      "license": "BSD-3-Clause AND MIT-open-group AND Zlib AND Apache-2.0",
+      "URL": "http://www.cmake.org"
+    },
+    "cppunit": {
+      "description": "CppUnit is the C++ port of the famous JUnit framework for unit testing. Test output is in XML for automatic testing and GUI based for supervised tests. cppunit 1.15.1 17.fc39 x86_64 142 k cppunit-1.15.1-17.fc39.src.rpm fedora CppUnit is the C++ port of the famous JUnit framework for unit testing. Test output is in XML for automatic testing and GUI based for supervised tests.",
+      "summary": "C++ unit testing framework",
+      "license": "LGPL-2.1-or-later",
+      "URL": "https://www.freedesktop.org/wiki/Software/cppunit/"
+    },
+    "curl": {
+      "description": "curl is a command line tool for transferring data with URL syntax, supporting FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, IMAP, SMTP, POP3 and RTSP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, cookies, user+password authentication (Basic, Digest, NTLM, Negotiate, kerberos...), file transfer resume, proxy tunneling and a busload of other useful tricks.",
+      "summary": "A utility for getting files from remote servers (FTP, HTTP, and others)",
+      "license": "curl",
+      "URL": "https://curl.se/"
+    }
+  }
+  

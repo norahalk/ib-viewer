@@ -1,0 +1,18 @@
+[
+    {
+      "name": "AXOL1TL",
+      "description": "Description of package1",
+      "summary": "Summary of package1",
+      "license": "MIT",
+      "url": "https://example.com/package1"
+    },
+    {
+      "name": "package2",
+      "description": "Description of package2",
+      "summary": "Summary of package2",
+      "license": "Apache-2.0",
+      "url": "https://example.com/package2"
+    }
+  ]
+  
+  

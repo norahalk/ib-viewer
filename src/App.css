@@ -158,16 +158,17 @@ table.center {
 }
 
 a:link, a:visited {
-  background-color: #282c34;
-  color: white;
+  /* background-color: #282c34; */
+  color: black;
   padding: 14px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-weight: bolder;
+  font-size: large;
   text-transform: capitalize;
 }
 
 a:hover, a:active {
-  background-color: #007bff;
+  background-color: #bfdeff;
 }
+

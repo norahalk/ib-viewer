@@ -23,14 +23,14 @@ const FlavorList = () => {
 
     return (
         <div>
-            <h3>Flavors for {ib} on {date}</h3>
+            <h1>Operating Systems for {ib} on {date}</h1>
             <TableContainer component={Paper}>
                 <Table>
-                    <TableHead>
+                    {/* <TableHead>
                         <TableRow>
                             <TableCell>Flavors</TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHead> */}
                     <TableBody>
                         {flavors.map(flavor => (
                             <TableRow key={flavor}>

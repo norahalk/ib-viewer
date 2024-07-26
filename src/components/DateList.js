@@ -22,14 +22,14 @@ const DateList = () => {
 
     return (
         <div>
-            <h2>Dates for {ib}</h2>
+            <h1>Build Dates for {ib}</h1>
             <TableContainer component={Paper}>
                 <Table>
-                    <TableHead>
+                    {/* <TableHead>
                         <TableRow>
                             <TableCell>Dates</TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHead> */}
                     <TableBody>
                         {Object.keys(dates).map(date => (
                             <TableRow key={date}>

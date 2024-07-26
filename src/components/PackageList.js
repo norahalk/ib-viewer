@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dataJSON from "../cmssw-ib.json";
 import { useTable, useGlobalFilter, usePagination } from "react-table";
-import "../App.css"; // Import CSS file for styling
+import { Link } from "react-router-dom";
 import {
   Button,
   Container,
@@ -32,7 +32,7 @@ const PackageList = () => {
         className: "center",
         Cell: ({ row }) => (
           <Typography variant="body1" className="center">
-            {row.original.name}
+            <Link to={`/package/${row.original.name}`}>{row.original.name}</Link>
           </Typography>
         ),
       },
@@ -77,16 +77,6 @@ const PackageList = () => {
 
   return (
     <Container>
-      {/* <h1>CMSSW Package Version Tracking Releases and Integration Builds</h1>
-      <a
-        href="https://github.com/norahalk/cmssw-ib-pkg-ui"
-        target="_blank"
-        without
-        rel="noreferrer"
-      >
-        {" "}
-        GitHub Repository
-      </a> */}
       <div className="search-bar">
         <TextField
           value={globalFilter || ""}
