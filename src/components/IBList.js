@@ -14,7 +14,7 @@ const IBList = () => {
     const [ibData, setIbData] = useState({});
 
     useEffect(() => {
-        axios.get('/api/folders')
+        axios.get('/api/api/folders')
             .then(response => setIbData(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);

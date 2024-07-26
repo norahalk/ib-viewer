@@ -9,13 +9,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 const FlavorList = () => {
     const { ib, date } = useParams();
     const [flavors, setFlavors] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/folders')
+        axios.get('/api/api/folders')
             .then(response => setFlavors(response.data[ib][date]))
             .catch(error => console.error('Error fetching data:', error));
     }, [ib, date]);
@@ -33,7 +34,9 @@ const FlavorList = () => {
                     <TableBody>
                         {flavors.map(flavor => (
                             <TableRow key={flavor}>
-                                <TableCell>{flavor}</TableCell>
+                                <TableCell>
+                                    <Link to={`/flavors/${ib}/${date}/packages`}>{flavor}</Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

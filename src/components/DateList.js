@@ -15,7 +15,7 @@ const DateList = () => {
     const [dates, setDates] = useState({});
 
     useEffect(() => {
-        axios.get('/api/folders')
+        axios.get('/api/api/folders')
             .then(response => setDates(response.data[ib]))
             .catch(error => console.error('Error fetching data:', error));
     }, [ib]);

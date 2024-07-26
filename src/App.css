@@ -36,3 +36,138 @@
     transform: rotate(360deg);
   }
 }
+
+.center {
+  text-align: center;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-container {
+  max-width: 90%;      /* Set maximum width for the table container */
+  margin: 20px auto;   /* Center align the table and add larger margins */
+}
+
+.table {
+  width: 100%;         /* Set table width to 100% of its container */
+  border-collapse: collapse;
+  margin: 10px;        /* Add margin around the table */
+}
+
+.table th,
+.table td {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: bolder;
+  font-size: large;
+}
+
+.table tbody tr.even {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr.odd {
+  background-color: #e0e0e0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap; /* Allow items to wrap if necessary */
+}
+
+.pagination span,
+.pagination button,
+.pagination select,
+.pagination input {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination select,
+.pagination input {
+  padding: 6px 10px;
+}
+
+.sources-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sources-cell a {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sources-cell a:hover {
+  background-color: #0056b3;
+}
+
+.search-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 80%;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.close-button {
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.close-button:hover {
+  background-color: #c9302c;
+}
+
+a:link, a:visited {
+  background-color: #282c34;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bolder;
+  text-transform: capitalize;
+}
+
+a:hover, a:active {
+  background-color: #007bff;
+}
