@@ -1,17 +1,22 @@
-// src/components/IBList.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  Pagination,
+  Container,
+  Typography,
+} from "@mui/material";
 
 const IBList = () => {
   const [ibData, setIbData] = useState({});
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 20;
 
   useEffect(() => {
     axios
@@ -20,25 +25,31 @@ const IBList = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const displayedRows = Object.keys(ibData).slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
+  );
+
   return (
-    <div>
-      <h1>CMSSW Integration Builds</h1>
-      <TableContainer component={Paper}>
+    <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
+      <Typography variant="h4" gutterBottom>
+        CMSSW Integration Builds
+      </Typography>
+      <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
         <Table>
-          {/* <TableHead>
-                        <TableRow>
-                            <TableCell>IBs</TableCell>
-                        </TableRow>
-                    </TableHead> */}
           <TableBody>
-            {Object.keys(ibData).map((ib, index) => (
+            {displayedRows.map((ib, index) => (
               <TableRow
                 key={ib}
                 style={{
                   backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
                 }}
               >
-                <TableCell>
+                <TableCell align="center">
                   <Link to={`/dates/${ib}`}>{ib}</Link>
                 </TableCell>
               </TableRow>
@@ -46,7 +57,15 @@ const IBList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+      {Object.keys(ibData).length > rowsPerPage && (
+        <Pagination
+          count={Math.ceil(Object.keys(ibData).length / rowsPerPage)}
+          page={page}
+          onChange={handleChangePage}
+          style={{ marginTop: "20px" }}
+        />
+      )}
+    </Container>
   );
 };
 

@@ -7,22 +7,27 @@ import FlavorList from './components/FlavorList';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PackageList from './components/PackageList';
 import PackageDetails from './components/PackageDetails';
+import Layout from './components/Layout';
+import About from './components/About';
 
 function App() {
     return (
         <Router>
-            <div className="App">
-                <Routes>
-                    <Route path="/" element={<IBList />} />
-                    <Route path="/dates/:ib" element={<DateList />} />
-                    <Route path="/flavors/:ib/:date" element={<FlavorList />} />
-                    <Route path="/flavors/:ib/:date/packages" element={<PackageList />} />
-                    <Route path="/package/:packageName" element={<PackageDetails />} />
+            <Layout>
+                <div className="App">
+                    <Routes>
+                        <Route path="/" element={<IBList />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/dates/:ib" element={<DateList />} />
+                        <Route path="/flavors/:ib/:date" element={<FlavorList />} />
+                        <Route path="/flavors/:ib/:date/packages" element={<PackageList />} />
+                        <Route path="/package/:packageName" element={<PackageDetails />} />
 
 
-                </Routes>
-            </div>
-        </Router>
+                    </Routes>
+                </div>
+            </Layout>
+        </Router >
     );
 }
 
