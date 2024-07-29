@@ -169,6 +169,6 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  background-color: #e5e9ee;
+  background-color: lightgray;
 }
 
