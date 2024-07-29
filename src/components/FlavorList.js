@@ -37,7 +37,7 @@ const FlavorList = () => {
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       <Typography variant="h4" gutterBottom>
-        Operating Systems for {ib} on {date}
+        IB Flavors for {ib} on {date}
       </Typography>
       <TableContainer component={Paper} style={{ maxWidth: '800px' }}>
         <Table>
