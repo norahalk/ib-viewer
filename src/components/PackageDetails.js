@@ -1,30 +1,49 @@
+// src/components/PackageDetails.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import packageDetails from "../package_details.json"; // Assume this is your JSON file with package details
-import { Container, Typography } from "@mui/material";
+import packageDetails from "../JSON/package_details.json";
+import { Container, Typography, Paper } from "@mui/material";
 
 const PackageDetails = () => {
   const { packageName } = useParams();
-  const [packageData, setPackageData] = useState(null);
+  const [details, setDetails] = useState({});
 
   useEffect(() => {
-    const data = packageDetails.find((pkg) => pkg.name === packageName);
-    setPackageData(data);
+    const packageData = packageDetails[packageName] || {
+      description: "N/A",
+      summary: "N/A",
+      license: "N/A",
+      URL: "N/A",
+    };
+    setDetails(packageData);
   }, [packageName]);
-
-  if (!packageData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Container>
-      <Typography variant="h4">{packageData.name}</Typography>
-      <Typography variant="body1">Description: {packageData.description}</Typography>
-      <Typography variant="body1">Summary: {packageData.summary}</Typography>
-      <Typography variant="body1">License: {packageData.license}</Typography>
-      <Typography variant="body1">
-        URL: <a href={packageData.url}>{packageData.url}</a>
-      </Typography>
+      <Paper style={{ padding: "20px", marginTop: "20px" }}>
+        <Typography variant="h4" gutterBottom>
+          {packageName}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>Description:</strong> {details.description}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>Summary:</strong> {details.summary}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>License:</strong> {details.license}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>URL:</strong>{" "}
+          {details.URL === "N/A" ? (
+            "N/A"
+          ) : (
+            <a href={details.URL} target="_blank" rel="noopener noreferrer">
+              {details.URL}
+            </a>
+          )}
+        </Typography>
+      </Paper>
     </Container>
   );
 };

@@ -32,7 +32,9 @@ const PackageList = () => {
         className: "center",
         Cell: ({ row }) => (
           <Typography variant="body1" className="center">
-            <Link to={`/package/${row.original.name}`}>{row.original.name}</Link>
+            <Link to={`/package/${row.original.name}`}>
+              {row.original.name}
+            </Link>
           </Typography>
         ),
       },
@@ -70,7 +72,7 @@ const PackageList = () => {
     setGlobalFilter,
     state: { pageIndex, pageSize, globalFilter },
   } = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 25 } }, // Initial page index and page size
+    { columns, data, initialState: { pageIndex: 0, pageSize: 5 } }, // Initial page index and page size
     useGlobalFilter,
     usePagination
   );

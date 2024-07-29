@@ -1,0 +1,416 @@
+{
+  "OpenBLAS": {
+    "description": "OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. The project is supported by the Lab of Parallel Software and Computational Science, ISCAS. http://www.rdcps.ac.cn openblas 0.3.21 6.fc39 x86_64 35 k openblas-0.3.21-6.fc39.src.rpm fedora OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. The project is supported by the Lab of Parallel Software and Computational Science, ISCAS. http://www.rdcps.ac.cn",
+    "summary": "An optimized BLAS library based on GotoBLAS2",
+    "license": "BSD",
+    "URL": "https://github.com/xianyi/OpenBLAS/"
+  },
+  "abseil-cpp": {
+    "description": "Abseil is an open-source collection of C++ library code designed to augment the C++ standard library. The Abseil library code is collected from",
+    "summary": "C++ Common Libraries",
+    "license": "Apache-2.0 AND LicenseRef-Fedora-Public-Domain",
+    "URL": "https://abseil.io"
+  },
+  "boost": {
+    "description": "Boost provides free peer-reviewed portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library, in the hopes of establishing existing practice for extensions and providing reference implementations so that the Boost libraries are suitable for eventual standardization. (Some of the libraries have already been included in the C++ 2011 standard and others have been proposed to the C++ Standards Committee for inclusion in future standards.) boost 1.81.0 11.fc39 x86_64 9.6 k boost-1.81.0-11.fc39.src.rpm updates Boost provides free peer-reviewed portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library, in the hopes of establishing existing practice for extensions and providing reference implementations so that the Boost libraries are suitable for eventual standardization. (Some of the libraries have already been included in the C++ 2011 standard and others have been proposed to the C++ Standards Committee for inclusion in future standards.)",
+    "summary": "The free peer-reviewed portable C++ source libraries",
+    "license": "BSL-1.0 AND MIT AND Python-2.0.1",
+    "URL": "http://www.boost.org"
+  },
+  "c-ares": {
+    "description": "c-ares is a C library that performs DNS requests and name resolves asynchronously. c-ares is a fork of the library named ares, written by Greg Hudson at MIT. Available Packages c-ares 1.28.1 1.fc39 i686 168 k c-ares-1.28.1-1.fc39.src.rpm updates c-ares is a C library that performs DNS requests and name resolves asynchronously. c-ares is a fork of the library named ares, written by Greg Hudson at MIT.",
+    "summary": "A library that performs asynchronous DNS operations",
+    "license": "MIT",
+    "URL": "http://c-ares.org/"
+  },
+  "cmake": {
+    "description": "CMake is used to control the software compilation process using simple platform and compiler independent configuration files. CMake generates native makefiles and workspaces that can be used in the compiler environment of your choice. CMake is quite sophisticated: it is possible to support complex environments requiring system configuration, preprocessor generation, code generation, and template instantiation. cmake 3.27.7 1.fc39 x86_64 8.0 M cmake-3.27.7-1.fc39.src.rpm fedora CMake is used to control the software compilation process using simple platform and compiler independent configuration files. CMake generates native makefiles and workspaces that can be used in the compiler environment of your choice. CMake is quite sophisticated: it is possible to support complex environments requiring system configuration, preprocessor generation, code generation, and template instantiation.",
+    "summary": "Cross-platform make system",
+    "license": "BSD-3-Clause AND MIT-open-group AND Zlib AND Apache-2.0",
+    "URL": "http://www.cmake.org"
+  },
+  "cppunit": {
+    "description": "CppUnit is the C++ port of the famous JUnit framework for unit testing. Test output is in XML for automatic testing and GUI based for supervised tests. cppunit 1.15.1 17.fc39 x86_64 142 k cppunit-1.15.1-17.fc39.src.rpm fedora CppUnit is the C++ port of the famous JUnit framework for unit testing. Test output is in XML for automatic testing and GUI based for supervised tests.",
+    "summary": "C++ unit testing framework",
+    "license": "LGPL-2.1-or-later",
+    "URL": "https://www.freedesktop.org/wiki/Software/cppunit/"
+  },
+  "curl": {
+    "description": "curl is a command line tool for transferring data with URL syntax, supporting FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, IMAP, SMTP, POP3 and RTSP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, cookies, user+password authentication (Basic, Digest, NTLM, Negotiate, kerberos...), file transfer resume, proxy tunneling and a busload of other useful tricks.",
+    "summary": "A utility for getting files from remote servers (FTP, HTTP, and others)",
+    "license": "curl",
+    "URL": "https://curl.se/"
+  },
+  "davix": {
+    "description": "Davix is a toolkit designed for file operations with http based protocols (WebDav, Amazon S3, ...).",
+    "summary": "Toolkit for http based file management",
+    "license": "LGPLv2+",
+    "URL": "https://dmc-docs.web.cern.ch/dmc-docs/davix.html"
+  },
+  "dcap": {
+    "description": "dCache is a distributed mass storage system. This package contains the client tools.",
+    "summary": "Client Tools for dCache",
+    "license": "LGPL-2.0-or-later AND BSD-3-Clause",
+    "URL": "https://www.dcache.org/manuals/libdcap.shtml"
+  },
+  "expat": {
+    "description": "This is expat, the C library for parsing XML, written by James Clark. Expat is a stream oriented XML parser. This means that you register handlers with the parser prior to starting the parse. These handlers are called when the parser discovers the associated structures in the document being parsed. A start tag is an example of the kind of structures for which you may register handlers. Available Packages expat 2.6.2 1.fc39 i686 118 k expat-2.6.2-1.fc39.src.rpm updates This is expat, the C library for parsing XML, written by James Clark. Expat is a stream oriented XML parser. This means that you register handlers with the parser prior to starting the parse. These handlers are called when the parser discovers the associated structures in the document being parsed. A start tag is an example of the kind of structures for which you may register handlers.",
+    "summary": "An XML parser library",
+    "license": "MIT",
+    "URL": "https://libexpat.github.io/"
+  },
+  "flatbuffers": {
+    "description": "FlatBuffers is a cross platform serialization library architected for maximum memory efficiency. It allows you to directly access serialized data without parsing/unpacking it first, while still having great forwards/backwards compatibility.",
+    "summary": "FlatBuffers: Memory Efficient Serialization Library",
+    "license": "Apache-2.0",
+    "URL": "https://google.github.io/flatbuffers"
+  },
+  "fmt": {
+    "description": "C++ Format is an open-source formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams. Available Packages fmt 10.0.0 3.fc39 i686 131 k fmt-10.0.0-3.fc39.src.rpm fedora C++ Format is an open-source formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams.",
+    "summary": "Small, safe and fast formatting library for C++",
+    "license": "MIT",
+    "URL": "https://github.com/fmtlib/fmt"
+  },
+  "freetype": {
+    "description": "The FreeType engine is a free and portable font rendering engine, developed to provide advanced font support for a variety of platforms and environments. FreeType is a library which can open and manages font files as well as efficiently load, hint and render individual glyphs. FreeType is not a font server or a complete text-rendering library. Available Packages freetype 2.13.1 2.fc39 i686 419 k freetype-2.13.1-2.fc39.src.rpm fedora The FreeType engine is a free and portable font rendering engine, developed to provide advanced font support for a variety of platforms and environments. FreeType is a library which can open and manages font files as well as efficiently load, hint and render individual glyphs. FreeType is not a font server or a complete text-rendering library.",
+    "summary": "A free and portable font rendering engine",
+    "license": "(FTL or GPLv2+) and BSD and MIT and Public Domain and zlib with acknowledgement",
+    "URL": "http://www.freetype.org"
+  },
+  "gcc": {
+    "description": "The gcc package contains the GNU Compiler Collection version 13.",
+    "summary": "Various compilers (C, C++, Objective-C, ...)",
+    "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD",
+    "URL": "http://gcc.gnu.org"
+  },
+  "gdb": {
+    "description": "GDB, the GNU debugger, allows you to debug programs written in C, C++, Fortran, Go, and other languages, by executing them in a controlled fashion and printing their data. If you want to use GDB for development purposes, you should install the gdb package which will install gdb-headless and possibly other useful packages too.",
+    "summary": "A GNU source-level debugger for C, C++, Fortran, Go and other languages",
+    "license": "GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL",
+    "URL": "https://gnu.org/software/gdb/"
+  },
+  "gdbm": {
+    "description": "Gdbm is a GNU database indexing library, including routines which use extensible hashing. Gdbm works in a similar way to standard UNIX dbm routines. Gdbm is useful for developers who write C applications and need access to a simple and efficient database or who are building C applications which will use such a database. If",
+    "summary": "A GNU set of database routines which use extensible hashing",
+    "license": "GPL-3.0-or-later",
+    "URL": "http://www.gnu.org/software/gdbm/"
+  },
+  "giflib": {
+    "description": "giflib is a library for reading and writing gif images. Available Packages giflib 5.2.2 1.fc39 i686 54 k giflib-5.2.2-1.fc39.src.rpm updates giflib is a library for reading and writing gif images.",
+    "summary": "A library and utilities for processing GIFs",
+    "license": "MIT",
+    "URL": "http://www.sourceforge.net/projects/giflib/"
+  },
+  "git": {
+    "description": "Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals. The git rpm installs common set of tools which are usually using with small amount of dependencies. To install all git packages, including tools for integrating with other SCMs, install the git-all meta-package.",
+    "summary": "Fast Version Control System",
+    "license": "BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT",
+    "URL": "https://git-scm.com/"
+  },
+  "glimpse": {
+    "description": "Glimpse is a very powerful indexing and query system that allows you to search through all your files very quickly. It can be used by individuals for their personal file systems as well as by organizations for large data collections.",
+    "summary": "Powerful file indexing and query system",
+    "license": "ISC",
+    "URL": "https://github.com/gvelez17/glimpse"
+  },
+  "gnuplot": {
+    "description": "Gnuplot is a command-line driven, interactive function plotting program especially suited for scientific data representation. Gnuplot can be used to plot functions and data points in both two and three dimensions and in many different formats. Install gnuplot if you need a graphics package for scientific data representation. This package provides a Qt based terminal version of gnuplot.",
+    "summary": "A program for plotting mathematical expressions and data",
+    "license": "gnuplot and MIT",
+    "URL": "http://www.gnuplot.info/"
+  },
+  "google-benchmark": {
+    "description": "A library to support the benchmarking of functions, similar to unit-tests. google-benchmark 1.8.4 1.fc39 x86_64 161 k google-benchmark-1.8.4-1.fc39.src.rpm updates A library to support the benchmarking of functions, similar to unit-tests.",
+    "summary": "A microbenchmark support library",
+    "license": "Apache-2.0",
+    "URL": "https://github.com/google/benchmark"
+  },
+  "gperftools": {
+    "description": "Perf Tools is a collection of performance analysis tools, including a high-performance multi-threaded malloc() implementation that works particularly well with threads and STL, a thread-friendly heap-checker, a heap profiler, and a cpu-profiler. This is a metapackage which pulls in all of the gperftools (and pprof) binaries, libraries, and development headers, so that you can use them.",
+    "summary": "Very fast malloc and performance analysis tools",
+    "license": "BSD",
+    "URL": "https://github.com/gperftools/gperftools"
+  },
+  "grpc": {
+    "description": "gRPC is a modern open source high performance RPC framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking and authentication. It is also applicable in last mile of distributed computing to connect devices, mobile applications and browsers to backend services. The main usage scenarios: • Efficiently connecting polyglot services in microservices style architecture • Connecting mobile devices, browser clients to backend services • Generating efficient client libraries Core Features that make it awesome: • Idiomatic client libraries in 10 languages • Highly efficient on wire and with a simple service definition framework • Bi-directional streaming with http/2 based transport • Pluggable auth, tracing, load balancing and health checking This package provides the shared C core library. grpc 1.48.4 25.fc39 x86_64 2.5 M grpc-1.48.4-25.fc39.src.rpm fedora gRPC is a modern open source high performance RPC framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking and authentication. It is also applicable in last mile of distributed computing to connect devices, mobile applications and browsers to backend services. The main usage scenarios: • Efficiently connecting polyglot services in microservices style architecture • Connecting mobile devices, browser clients to backend services • Generating efficient client libraries Core Features that make it awesome: • Idiomatic client libraries in 10 languages • Highly efficient on wire and with a simple service definition framework • Bi-directional streaming with http/2 based transport • Pluggable auth, tracing, load balancing and health checking This package provides the shared C core library.",
+    "summary": "RPC library and framework",
+    "license": "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT",
+    "URL": "https://www.grpc.io"
+  },
+  "gsl": {
+    "description": "The GNU Scientific Library (GSL) is a collection of routines for numerical analysis, written in C. gsl 2.7.1 5.fc39 x86_64 1.1 M gsl-2.7.1-5.fc39.src.rpm fedora The GNU Scientific Library (GSL) is a collection of routines for numerical analysis, written in C.",
+    "summary": "The GNU Scientific Library for numerical analysis",
+    "license": "GPLv3+",
+    "URL": "http://www.gnu.org/software/gsl/"
+  },
+  "hdf5": {
+    "description": "HDF5 is a general purpose library and file format for storing scientific data. HDF5 can store two primary objects: datasets and groups. A dataset is essentially a multidimensional array of data elements, and a group is a structure for organizing objects in an HDF5 file. Using these two basic objects, one can create and store almost any kind of scientific data structure, such as images, arrays of vectors, and structured and unstructured grids. You can also mix and match them in HDF5 files according to your needs. hdf5 1.12.1 12.fc39 x86_64 2.2 M hdf5-1.12.1-12.fc39.src.rpm fedora HDF5 is a general purpose library and file format for storing scientific data. HDF5 can store two primary objects: datasets and groups. A dataset is essentially a multidimensional array of data elements, and a group is a structure for organizing objects in an HDF5 file. Using these two basic objects, one can create and store almost any kind of scientific data structure, such as images, arrays of vectors, and structured and unstructured grids. You can also mix and match them in HDF5 files according to your needs.",
+    "summary": "A general purpose library and file format for storing scientific data",
+    "license": "BSD",
+    "URL": "https://portal.hdfgroup.org/display/HDF5/HDF5"
+  },
+  "heaptrack": {
+    "description": "Heaptrack traces all memory allocations and annotates these events with stack traces.Dedicated analysis tools then allow you to interpret the heap memory profile to: - find hotspots that need to be optimized to reduce the memory footprint of your application - find memory leaks, i.e. locations that allocate memory which is never deallocated - find allocation hotspots, i.e. code locations that trigger a lot of memory allocation calls - find temporary allocations, which are allocations that are directly followed by their deallocation",
+    "summary": "A heap memory profiler for Linux",
+    "license": "GPLv2+",
+    "URL": "https://cgit.kde.org/heaptrack.git/"
+  },
+  "hepmc": {
+    "description": "The HepMC package is an object oriented event record written in C++ for High Energy Physics Monte Carlo Generators. Many extensions from HEPEVT, the Fortran HEP standard, are supported: the number of entries is unlimited, spin density matrices can be stored with each vertex, flow patterns (such as color) can be stored and traced, integers representing random number generator states can be stored, and an arbitrary number of event weights can be included. Particles and vertices are kept separate in a graph structure, physically similar to a physics event. The added information supports the modularization of event generators. The package has been kept as simple as possible with minimal internal/external dependencies. Event information is accessed by means of iterators supplied with the package. HepMC 2.06.11 9.fc39 x86_64 140 k HepMC-2.06.11-9.fc39.src.rpm fedora The HepMC package is an object oriented event record written in C++ for High Energy Physics Monte Carlo Generators. Many extensions from HEPEVT, the Fortran HEP standard, are supported: the number of entries is unlimited, spin density matrices can be stored with each vertex, flow patterns (such as color) can be stored and traced, integers representing random number generator states can be stored, and an arbitrary number of event weights can be included. Particles and vertices are kept separate in a graph structure, physically similar to a physics event. The added information supports the modularization of event generators. The package has been kept as simple as possible with minimal internal/external dependencies. Event information is accessed by means of iterators supplied with the package.",
+    "summary": "C++ Event Record for Monte Carlo Generators",
+    "license": "GPLv2+",
+    "URL": "http://hepmc.web.cern.ch/hepmc/"
+  },
+  "hepmc3": {
+    "description": "The HepMC3 package is an object oriented, C++ event record for High Energy Physics Monte Carlo generators and simulation, described in A. Buckley et al.,",
+    "summary": "C++ Event Record for Monte Carlo Generators",
+    "license": "LGPL-3.0-or-later AND MPL-2.0",
+    "URL": "https://hepmc.web.cern.ch/hepmc"
+  },
+  "hwloc": {
+    "description": "The Portable Hardware Locality (hwloc) software package provides a portable abstraction (across OS, versions, architectures, ...) of the hierarchical topology of modern architectures, including NUMA memory nodes, shared caches, processor sockets, processor cores and processing units (logical processors or threads). It also gathers various system attributes such as cache and memory information. It primarily aims at helping applications with gathering information about modern computing hardware so as to exploit it accordingly and efficiently. hwloc may display the topology in multiple convenient formats. It also offers a powerful programming interface (C API) to gather information about the hardware, bind processes, and much more.",
+    "summary": "Portable Hardware Locality - portable abstraction of hierarchical architectures",
+    "license": "BSD-2-Clause",
+    "URL": "http://www.open-mpi.org/projects/hwloc/"
+  },
+  "jemalloc": {
+    "description": "General-purpose scalable concurrent malloc(3) implementation. This distribution is the stand-alone portable implementation of jemalloc. Available Packages jemalloc 5.3.0 4.fc39 i686 232 k jemalloc-5.3.0-4.fc39.src.rpm fedora General-purpose scalable concurrent malloc(3) implementation. This distribution is the stand-alone portable implementation of jemalloc.",
+    "summary": "General-purpose scalable concurrent malloc implementation",
+    "license": "BSD",
+    "URL": "http://www.canonware.com/jemalloc/"
+  },
+  "lcov": {
+    "description": "LCOV is an extension of GCOV, a GNU tool which provides information about what parts of a program are actually executed (i.e. covered) while running a particular test case. The extension consists of a set of PERL scripts which build on the textual GCOV output to implement HTML output and support for large projects.",
+    "summary": "LTP GCOV extension code coverage tool",
+    "license": "GPL-2.0-or-later",
+    "URL": "https://github.com/linux-test-project/lcov/"
+  },
+  "lhapdf": {
+    "description": "LHAPDF is a general purpose C++ interpolator, used for evaluating PDFs from discretized data files. Previous versions of LHAPDF were written in Fortran 77/90 and are documented at http://lhapdf.hepforge.org/lhapdf5/. LHAPDF6 vastly reduces the memory overhead of the Fortran LHAPDF (from gigabytes to megabytes!), entirely removes restrictions on numbers of concurrent PDFs, allows access to single PDF members without needing to load whole sets, and separates a new standardized PDF data format from the code library so that new PDF sets may be created and released easier and faster. The C++ LHAPDF6 also permits arbitrary parton contents via the standard PDG ID code scheme, is computationally more efficient (particularly if only one or two flavors are required at each phase space point, as in PDF reweighting), and uses a flexible metadata system which fixes many fundamental metadata and concurrency bugs in LHAPDF5. Compatibility routines are provided as standard for existing C++ and Fortran codes using the LHAPDF5 and PDFLIB legacy interfaces, so you can keep using your existing codes. But the new interface is much more powerful and pleasant to work with, so we think",
+    "summary": "Les Houches Accord PDF Interface",
+    "license": "GPL-3.0-only",
+    "URL": "https://lhapdf.hepforge.org/"
+  },
+  "libffi": {
+    "description": "Compilers for high level languages generate code that follow certain conventions. These conventions are necessary, in part, for separate compilation to work. One such convention is the calling convention. The calling convention is a set of assumptions made by the compiler about where function arguments will be found on entry to a function. A calling convention also specifies where the return value for a function is found. Some programs may not know at the time of compilation what arguments are to be passed to a function. For instance, an interpreter may be told at run-time about the number and types of arguments used to call a given function.",
+    "summary": "A portable foreign function interface library",
+    "license": "MIT",
+    "URL": "http://sourceware.org/libffi"
+  },
+  "libjpeg-turbo": {
+    "description": "The libjpeg-turbo package contains a library of functions for manipulating JPEG images. Available Packages libjpeg-turbo 2.1.4 3.fc39 i686 198 k libjpeg-turbo-2.1.4-3.fc39.src.rpm fedora The libjpeg-turbo package contains a library of functions for manipulating JPEG images.",
+    "summary": "A MMX/SSE2/SIMD accelerated library for manipulating JPEG image files",
+    "license": "IJG",
+    "URL": "http://sourceforge.net/projects/libjpeg-turbo"
+  },
+  "libpciaccess": {
+    "description": "libpciaccess is a library for portable PCI access routines across multiple operating systems. Available Packages libpciaccess 0.16 9.fc39 i686 29 k libpciaccess-0.16-9.fc39.src.rpm fedora libpciaccess is a library for portable PCI access routines across multiple operating systems.",
+    "summary": "PCI access library",
+    "license": "MIT",
+    "URL": "https://www.x.org/"
+  },
+  "libpng": {
+    "description": "The libpng package contains a library of functions for creating and manipulating PNG (Portable Network Graphics) image format files. PNG is a bit-mapped graphics format similar to the GIF format. PNG was created to replace the GIF format, since GIF uses a patented data compression algorithm. Libpng should be installed if you need to manipulate PNG format image files. Available Packages libpng 2 1.6.37 15.fc39 i686 127 k libpng-1.6.37-15.fc39.src.rpm fedora The libpng package contains a library of functions for creating and manipulating PNG (Portable Network Graphics) image format files. PNG is a bit-mapped graphics format similar to the GIF format. PNG was created to replace the GIF format, since GIF uses a patented data compression algorithm. Libpng should be installed if you need to manipulate PNG format image files.",
+    "summary": "A library of functions for manipulating PNG image format files",
+    "license": "zlib",
+    "URL": "http://www.libpng.org/pub/png/"
+  },
+  "libtiff": {
+    "description": "The libtiff package contains a library of functions for manipulating TIFF (Tagged Image File Format) image format files. TIFF is a widely used file format for bitmapped images. TIFF files usually end in the .tif extension and they are often quite large. The libtiff package should be installed if you need to manipulate TIFF format image files. Available Packages libtiff 4.4.0 8.fc39 i686 219 k libtiff-4.4.0-8.fc39.src.rpm fedora The libtiff package contains a library of functions for manipulating TIFF (Tagged Image File Format) image format files. TIFF is a widely used file format for bitmapped images. TIFF files usually end in the .tif extension and they are often quite large. The libtiff package should be installed if you need to manipulate TIFF format image files.",
+    "summary": "Library of functions for manipulating TIFF format image files",
+    "license": "libtiff",
+    "URL": "http://www.simplesystems.org/libtiff/"
+  },
+  "libunwind": {
+    "description": "Libunwind provides a C ABI to determine the call-chain of a program. Available Packages libunwind 1.7.0 0.2.rc2.fc39 i686 67 k libunwind-1.7.0-0.2.rc2.fc39.src.rpm fedora Libunwind provides a C ABI to determine the call-chain of a program.",
+    "summary": "An unwinding library",
+    "license": "BSD",
+    "URL": "http://savannah.nongnu.org/projects/libunwind"
+  },
+  "libuuid": {
+    "description": "This is the universally unique ID library, part of util-linux. The libuuid library generates and parses 128-bit universally unique ids (UUIDs). A UUID is an identifier that is unique across both space and time, with respect to the space of all UUIDs. A UUID can be used for multiple purposes, from tagging objects with an extremely short lifetime, to reliably identifying very persistent objects across a network. See also the uuid package, which is a separate implementation. Available Packages libuuid 2.39.4 1.fc39 i686 29 k util-linux-2.39.4-1.fc39.src.rpm updates This is the universally unique ID library, part of util-linux. The libuuid library generates and parses 128-bit universally unique ids (UUIDs). A UUID is an identifier that is unique across both space and time, with respect to the space of all UUIDs. A UUID can be used for multiple purposes, from tagging objects with an extremely short lifetime, to reliably identifying very persistent objects across a network. See also the uuid package, which is a separate implementation.",
+    "summary": "Universally unique ID library",
+    "license": "BSD",
+    "URL": "https://en.wikipedia.org/wiki/Util-linux"
+  },
+  "libxml2": {
+    "description": "This library allows to manipulate XML files. It includes support to read, modify and write XML and HTML files. There is DTDs support this includes parsing and validation even with complex DtDs, either at parse time or later once the document has been modified. The output can be a simple SAX stream or and in-memory DOM like representations. In this case one can use the built-in XPath and XPointer implementation to select sub nodes or ranges. A flexible Input/Output mechanism is available, with existing HTTP and FTP modules and combined to an URI library. Available Packages libxml2 2.10.4 3.fc39 i686 743 k libxml2-2.10.4-3.fc39.src.rpm fedora This library allows to manipulate XML files. It includes support to read, modify and write XML and HTML files. There is DTDs support this includes parsing and validation even with complex DtDs, either at parse time or later once the document has been modified. The output can be a simple SAX stream or and in-memory DOM like representations. In this case one can use the built-in XPath and XPointer implementation to select sub nodes or ranges. A flexible Input/Output mechanism is available, with existing HTTP and FTP modules and combined to an URI library.",
+    "summary": "Library providing XML and HTML support",
+    "license": "MIT",
+    "URL": "http://xmlsoft.org/"
+  },
+  "libxslt": {
+    "description": "This C library allows to transform XML files into other XML files (or HTML, text, ...) using the standard XSLT stylesheet transformation mechanism. To use it you need to have a version of libxml2 >= 2.6.27 installed. The xsltproc command is a command line interface to the XSLT engine Available Packages libxslt 1.1.42 1.fc39 i686 200 k libxslt-1.1.42-1.fc39.src.rpm updates This C library allows to transform XML files into other XML files (or HTML, text, ...) using the standard XSLT stylesheet transformation mechanism. To use it you need to have a version of libxml2 >= 2.6.27 installed. The xsltproc command is a command line interface to the XSLT engine",
+    "summary": "Library providing the Gnome XSLT engine",
+    "license": "MIT",
+    "URL": "https://gitlab.gnome.org/GNOME/libxslt"
+  },
+  "llvm": {
+    "description": "LLVM is a compiler infrastructure designed for compile-time, link-time, runtime, and idle-time optimization of programs from arbitrary programming languages. The compiler infrastructure includes mirror sets of programming tools as well as libraries with equivalent functionality. llvm 17.0.6 4.fc39 x86_64 25 M llvm-17.0.6-4.fc39.src.rpm updates LLVM is a compiler infrastructure designed for compile-time, link-time, runtime, and idle-time optimization of programs from arbitrary programming languages. The compiler infrastructure includes mirror sets of programming tools as well as libraries with equivalent functionality.",
+    "summary": "The Low Level Virtual Machine",
+    "license": "Apache-2.0 WITH LLVM-exception OR NCSA",
+    "URL": "http://llvm.org"
+  },
+  "log4cplus": {
+    "description": "log4cplus is a simple to use C++ logging API providing thread-safe, flexible, and arbitrarily granular control over log management and configuration. It is modeled after the Java log4j API. log4cplus 2.1.0 1.fc39 x86_64 342 k log4cplus-2.1.0-1.fc39.src.rpm fedora log4cplus is a simple to use C++ logging API providing thread-safe, flexible, and arbitrarily granular control over log management and configuration. It is modeled after the Java log4j API.",
+    "summary": "Logging Framework for C++",
+    "license": "ASL 2.0",
+    "URL": "http://sourceforge.net/projects/log4cplus"
+  },
+  "lz4": {
+    "description": "LZ4 is an extremely fast loss-less compression algorithm, providing compression speed at 400 MB/s per core, scalable with multi-core CPU. It also features an extremely fast decoder, with speed in multiple GB/s per core, typically reaching RAM speed limits on multi-core systems.",
+    "summary": "Extremely fast compression algorithm",
+    "license": "GPL-2.0-or-later AND BSD-2-Clause",
+    "URL": "https://lz4.github.io/lz4/"
+  },
+  "numactl": {
+    "description": "Simple NUMA policy support. It consists of a numactl program to run other programs with a specific NUMA policy.",
+    "summary": "Library for tuning for Non Uniform Memory Access machines",
+    "license": "GPLv2",
+    "URL": "https://github.com/numactl/numactl"
+  },
+  "onnxruntime": {
+    "description": "onnxruntime is a cross-platform inferencing and training accelerator compatible with many popular ML/DNN frameworks, including PyTorch, TensorFlow/Keras, scikit-learn, and more.",
+    "summary": "A cross-platform inferencing and training accelerator",
+    "license": "MIT and ASL 2.0 and Boost and BSD",
+    "URL": "https://github.com/microsoft/onnxruntime"
+  },
+  "opencv": {
+    "description": "OpenCV means Intel® Open Source Computer Vision Library. It is a collection of C functions and a few C++ classes that implement some popular Image Processing and Computer Vision algorithms. opencv 4.8.1 1.fc39 x86_64 109 k opencv-4.8.1-1.fc39.src.rpm updates OpenCV means Intel® Open Source Computer Vision Library. It is a collection of C functions and a few C++ classes that implement some popular Image Processing and Computer Vision algorithms.",
+    "summary": "Collection of algorithms for computer vision",
+    "license": "BSD-3-Clause and Apache-2.0 and ISC",
+    "URL": "https://opencv.org"
+  },
+  "openldap": {
+    "description": "OpenLDAP is an open source suite of LDAP (Lightweight Directory Access Protocol) applications and development tools. LDAP is a set of protocols for accessing directory services (usually phone book style information, but other information is possible) over the Internet, similar to the way DNS (Domain Name System) information is propagated over the Internet. The openldap package contains configuration files, libraries, and documentation for OpenLDAP. Available Packages openldap 2.6.7 1.fc39 i686 272 k openldap-2.6.7-1.fc39.src.rpm updates OpenLDAP is an open source suite of LDAP (Lightweight Directory Access Protocol) applications and development tools. LDAP is a set of protocols for accessing directory services (usually phone book style information, but other information is possible) over the Internet, similar to the way DNS (Domain Name System) information is propagated over the Internet. The openldap package contains configuration files, libraries, and documentation for OpenLDAP.",
+    "summary": "LDAP support libraries",
+    "license": "OLDAP-2.8",
+    "URL": "http://www.openldap.org/"
+  },
+  "openmpi": {
+    "description": "Open MPI is an open source, freely available implementation of both the MPI-1 and MPI-2 standards, combining technologies and resources from several other projects (FT-MPI, LA-MPI, LAM/MPI, and PACX-MPI) in order to build the best MPI library available. A completely new MPI-2 compliant implementation, Open MPI offers advantages for system and software vendors, application developers, and computer science researchers. For more information, see http://www.open-mpi.org/ . openmpi 4.1.5 8.fc39 x86_64 2.7 M openmpi-4.1.5-8.fc39.src.rpm updates Open MPI is an open source, freely available implementation of both the MPI-1 and MPI-2 standards, combining technologies and resources from several other projects (FT-MPI, LA-MPI, LAM/MPI, and PACX-MPI) in order to build the best MPI library available. A completely new MPI-2 compliant implementation, Open MPI offers advantages for system and software vendors, application developers, and computer science researchers. For more information, see http://www.open-mpi.org/ .",
+    "summary": "Open Message Passing Interface",
+    "license": "BSD and MIT and Romio",
+    "URL": "http://www.open-mpi.org/"
+  },
+  "pcre": {
+    "description": "PCRE, Perl-compatible regular expression, library has its own native API, but a set of wrapper functions that are based on the POSIX API are also supplied in the libpcreposix library. Note that this just provides a POSIX calling interface to PCRE: the regular expressions themselves still follow Perl syntax and semantics. This package provides support for strings in 8-bit and UTF-8 encodings. Detailed change log is provided by pcre-doc package. Available Packages pcre 8.45 1.fc39.4 i686 198 k pcre-8.45-1.fc39.4.src.rpm fedora PCRE, Perl-compatible regular expression, library has its own native API, but a set of wrapper functions that are based on the POSIX API are also supplied in the libpcreposix library. Note that this just provides a POSIX calling interface to PCRE: the regular expressions themselves still follow Perl syntax and semantics. This package provides support for strings in 8-bit and UTF-8 encodings. Detailed change log is provided by pcre-doc package.",
+    "summary": "Perl-compatible regular expression library",
+    "license": "BSD-3-Clause",
+    "URL": "https://www.pcre.org/"
+  },
+  "pcre2": {
+    "description": "PCRE2 is a re-working of the original PCRE (Perl-compatible regular expression) library to provide an entirely new API. PCRE2 is written in C, and it has its own API. There are three sets of functions, one for the 8-bit library, which processes strings of bytes, one for the 16-bit library, which processes strings of 16-bit values, and one for the 32-bit library, which processes strings of 32-bit values. There are no C++ wrappers. This package provides support for strings in 8-bit and UTF-8 encodings. Install pcre2-utf16 or pcre2-utf32 packages for the other ones. The distribution does contain a set of C wrapper functions for the 8-bit library that are based on the POSIX regular expression API (see the pcre2posix man page). These can be found in a library called libpcre2posix. Note that this just provides a POSIX calling interface to PCRE2; the regular expressions themselves still follow Perl syntax and semantics. The POSIX API is restricted, and does not give full access to all of",
+    "summary": "Perl-compatible regular expression library",
+    "license": "BSD-3-Clause",
+    "URL": "https://www.pcre.org/"
+  },
+  "protobuf": {
+    "description": "Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. Google uses Protocol Buffers for almost all of its internal RPC protocols and file formats. Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the old format. Available Packages protobuf 3.19.6 6.fc39 i686 1.1 M protobuf-3.19.6-6.fc39.src.rpm fedora Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. Google uses Protocol Buffers for almost all of its internal RPC protocols and file formats. Protocol buffers are a flexible, efficient, automated mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. You can even update your data structure without breaking deployed programs that are compiled against the old format.",
+    "summary": "Protocol Buffers -",
+    "license": "BSD-3-Clause",
+    "URL": "https://github.com/protocolbuffers/protobuf"
+  },
+  "qd": {
+    "description": "This package provides numeric types of twice the precision of IEEE double (106 mantissa bits, or approximately 32 decimal digits) and four times the precision of IEEE double (212 mantissa bits, or approximately 64 decimal digits). Due to features such as operator and function overloading, these facilities can be utilized with only minor modifications to conventional C++ and Fortran-90 programs. In addition to the basic arithmetic operations (add, subtract, multiply, divide, square root), common transcendental functions such as the exponential, logarithm, trigonometric and hyperbolic functions are also included. qd 2.3.24 1.fc39 x86_64 128 k qd-2.3.24-1.fc39.src.rpm updates This package provides numeric types of twice the precision of IEEE double (106 mantissa bits, or approximately 32 decimal digits) and four times the precision of IEEE double (212 mantissa bits, or approximately 64 decimal digits). Due to features such as operator and function overloading, these facilities can be utilized with only minor modifications to conventional C++ and Fortran-90 programs. In addition to the basic arithmetic operations (add, subtract, multiply, divide, square root), common transcendental functions such as the exponential, logarithm, trigonometric and hyperbolic functions are also included.",
+    "summary": "Double-Double and Quad-Double Arithmetic",
+    "license": "BSD-3-Clause-LBNL",
+    "URL": "https://www.davidhbailey.com/dhbsoftware/"
+  },
+  "rdma-core": {
+    "description": "RDMA core userspace infrastructure and documentation, including initialization scripts, kernel driver-specific modprobe override configs, IPoIB network scripts, dracut rules, and the rdma-ndd utility.",
+    "summary": "RDMA core userspace libraries and daemons",
+    "license": "GPLv2 or BSD",
+    "URL": "https://github.com/linux-rdma/rdma-core"
+  },
+  "re2": {
+    "description": "RE2 is a C++ library providing a fast, safe, thread-friendly alternative to backtracking regular expression engines like those used in PCRE, Perl, and Python. Backtracking engines are typically full of features and convenient syntactic sugar but can be forced into taking exponential amounts of time on even small inputs. In contrast, RE2 uses automata theory to guarantee that regular expression searches run in time linear in the size of the input, at the expense of some missing features (e.g back references and generalized assertions). re2 1 20220601 3.fc39 x86_64 200 k re2-20220601-3.fc39.src.rpm fedora RE2 is a C++ library providing a fast, safe, thread-friendly alternative to backtracking regular expression engines like those used in PCRE, Perl, and Python. Backtracking engines are typically full of features and convenient syntactic sugar but can be forced into taking exponential amounts of time on even small inputs. In contrast, RE2 uses automata theory to guarantee that regular expression searches run in time linear in the size of the input, at the expense of some missing features (e.g back references and generalized assertions).",
+    "summary": "C++ fast alternative to backtracking RE engines",
+    "license": "BSD",
+    "URL": "http://github.com/google/re2/"
+  },
+  "root": {
+    "description": "The ROOT system provides a set of object oriented frameworks with all the functionality needed to handle and analyze large amounts of data in a very efficient way. Having the data defined as a set of objects, specialized storage methods are used to get direct access to the separate attributes of the selected objects, without having to touch the bulk of the data. Included are histogramming methods in an arbitrary number of dimensions, curve fitting, function evaluation, minimization, graphics and visualization classes to allow the easy setup of an analysis system that can query and process the data interactively or in batch mode, as well as a general parallel processing framework, PROOF, that can considerably speed up an analysis. Thanks to the built-in C++ interpreter cling, the command, the scripting and the programming language are all C++. The interpreter allows for fast prototyping of the macros since it removes the, time consuming, compile/link cycle. It also provides a good environment to learn C++. If more performance is needed the interactively developed macros can be compiled using a C++ compiler via a machine independent transparent compiler interface called ACliC. The system has been designed in such a way that it can query its databases in parallel on clusters of workstations or many-core machines. ROOT is an open system that can be dynamically extended by linking external libraries. This makes ROOT a premier platform on which to build data acquisition, simulation and data analysis systems.",
+    "summary": "Numerical data analysis framework",
+    "license": "LGPL-2.1-or-later",
+    "URL": "https://root.cern/"
+  },
+  "rust": {
+    "description": "Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. This package includes the Rust compiler and documentation generator.",
+    "summary": "The Rust Programming Language",
+    "license": "(Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)",
+    "URL": "https://www.rust-lang.org"
+  },
+  "sloccount": {
+    "description": "SLOCCount (pronounced sloc-count) is a suite of programs for counting physical source lines of code (SLOC) in potentially large software systems. SLOCCount can be used to generate reports in different formats for use by report-generating tools.",
+    "summary": "Measures source lines of code (SLOC) in programs",
+    "license": "GPLv2+",
+    "URL": "https://sourceforge.net/projects/sloccount/"
+  },
+  "sqlite": {
+    "description": "SQLite is a C library that implements an SQL database engine. A large subset of SQL92 is supported. A complete database is stored in a single disk file. The API is designed for convenience and ease of use. Applications that link against SQLite can enjoy the power and flexibility of an SQL database without the administrative hassles of supporting a separate database server. Version 2 and version 3 binaries are named to permit each to be installed on a single host Available Packages sqlite 3.42.0 7.fc39 i686 873 k sqlite-3.42.0-7.fc39.src.rpm fedora SQLite is a C library that implements an SQL database engine. A large subset of SQL92 is supported. A complete database is stored in a single disk file. The API is designed for convenience and ease of use. Applications that link against SQLite can enjoy the power and flexibility of an SQL database without the administrative hassles of supporting a separate database server. Version 2 and version 3 binaries are named to permit each to be installed on a single host",
+    "summary": "Library that implements an embeddable SQL database engine",
+    "license": "blessing",
+    "URL": "http://www.sqlite.org/"
+  },
+  "tbb": {
+    "description": "Threading Building Blocks (TBB) is a C++ runtime library that abstracts the low-level threading details necessary for optimal multi-core performance. It uses common C++ templates and coding style to eliminate tedious threading implementation work. TBB requires fewer lines of code to achieve parallelism than other threading models. The applications you write are portable across platforms. Since the library is also inherently scalable, no code maintenance is required as more processor cores become available. tbb 2020.3 20.fc39 x86_64 169 k tbb-2020.3-20.fc39.src.rpm fedora Threading Building Blocks (TBB) is a C++ runtime library that abstracts the low-level threading details necessary for optimal multi-core performance. It uses common C++ templates and coding style to eliminate tedious threading implementation work. TBB requires fewer lines of code to achieve parallelism than other threading models. The applications you write are portable across platforms. Since the library is also inherently scalable, no code maintenance is required as more processor cores become available.",
+    "summary": "The Threading Building Blocks library abstracts low-level threading details",
+    "license": "ASL 2.0",
+    "URL": "http://threadingbuildingblocks.org/"
+  },
+  "tinyxml2": {
+    "description": "TinyXML-2 is a simple, small, efficient, C++ XML parser that can be easily integrated into other programs. It uses a Document Object Model (DOM), meaning the XML data is parsed into a C++ objects that can be browsed and manipulated, and then written to disk or another output stream. TinyXML-2",
+    "summary": "Simple, small and efficient C++ XML parser",
+    "license": "zlib",
+    "URL": "https://github.com/leethomason/tinyxml2"
+  },
+  "ucx": {
+    "description": "UCX is an optimized communication framework for high-performance distributed applications. UCX utilizes high-speed networks, such as RDMA (InfiniBand, RoCE, etc), Cray Gemini or Aries, for inter-node communication. If no such network is available, TCP is used instead. UCX supports efficient transfer of data in either main memory (RAM) or GPU memory (through CUDA and ROCm libraries). In addition, UCX provides efficient intra-node communication, by leveraging the following shared memory mechanisms: posix, sysv, cma, knem, and xpmem. The acronym UCX stands for Unified Communication X.",
+    "summary": "UCX is a communication library implementing high-performance messaging",
+    "license": "BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)",
+    "URL": "http://www.openucx.org"
+  },
+  "vecgeom": {
+    "description": "VecGeom is a geometry modeller library with hit-detection features as needed by particle detector simulation at the LHC and beyond. It was incubated by a Geant-R&D initiative and the motivation to combine the code of Geant4 and ROOT/TGeo into a single, better maintainable piece of software within the EU-AIDA program. As such it is close in scope to TGeo and Geant4 geometry modellers. vecgeom 1.2.6 1.fc39 x86_64 1.2 M vecgeom-1.2.6-1.fc39.src.rpm updates VecGeom is a geometry modeller library with hit-detection features as needed by particle detector simulation at the LHC and beyond. It was incubated by a Geant-R&D initiative and the motivation to combine the code of Geant4 and ROOT/TGeo into a single, better maintainable piece of software within the EU-AIDA program. As such it is close in scope to TGeo and Geant4 geometry modellers.",
+    "summary": "A vectorized geometry library for particle-detector simulation",
+    "license": "Apache-2.0 AND MIT AND (Apache-2.0 OR MIT)",
+    "URL": "https://gitlab.cern.ch/VecGeom/VecGeom"
+  },
+  "xerces-c": {
+    "description": "Xerces-C is a validating XML parser written in a portable subset of C++. Xerces-C makes it easy to give your application the ability to read and write XML data. A shared library is provided for parsing, generating, manipulating, and validating XML documents. Xerces-C is faithful to the XML 1.0 recommendation and associated standards: XML 1.0 (Third Edition), XML 1.1 (First Edition), DOM Level 1, 2, 3 Core, DOM Level 2.0 Traversal and Range, DOM Level 3.0 Load and Save, SAX 1.0 and SAX 2.0, Namespaces in XML, Namespaces in XML 1.1, XML Schema, XML Inclusions). xerces-c 3.2.5 1.fc39 x86_64 966 k xerces-c-3.2.5-1.fc39.src.rpm updates Xerces-C is a validating XML parser written in a portable subset of C++. Xerces-C makes it easy to give your application the ability to read and write XML data. A shared library is provided for parsing, generating, manipulating, and validating XML documents. Xerces-C is faithful to the XML 1.0 recommendation and associated standards: XML 1.0 (Third Edition), XML 1.1 (First Edition), DOM Level 1, 2, 3 Core, DOM Level 2.0 Traversal and Range, DOM Level 3.0 Load and Save, SAX 1.0 and SAX 2.0, Namespaces in XML, Namespaces in XML 1.1, XML Schema, XML Inclusions).",
+    "summary": "Validating XML Parser",
+    "license": "ASL 2.0",
+    "URL": "http://xml.apache.org/xerces-c/"
+  },
+  "xrootd": {
+    "description": "The Extended root file server consists of a file server called xrootd and a cluster management server called cmsd. The xrootd server was developed for the root analysis framework to serve root files. However, the server is agnostic to file types and provides POSIX-like access to any type of file. The cmsd server is the next generation version of the olbd server, originally developed to cluster and load balance Objectivity/DB AMS database servers. It provides enhanced capability along with lower latency and increased throughput.",
+    "summary": "Extended ROOT file server",
+    "license": "LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib",
+    "URL": "https://xrootd.slac.stanford.edu/"
+  },
+  "xz": {
+    "description": "XZ Utils are an attempt to make LZMA compression easy to use on free (as in freedom) operating systems. This is achieved by providing tools and libraries which are similar to use than the equivalents of the most popular existing compression algorithms. LZMA is a general purpose compression algorithm designed by Igor Pavlov as part of 7-Zip. It provides high compression ratio while keeping the decompression speed fast.",
+    "summary": "LZMA compression utilities",
+    "license": "GPLv2+ and Public Domain",
+    "URL": "https://tukaani.org/xz/"
+  },
+  "yaml-cpp": {
+    "description": "yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec. yaml-cpp 0.7.0 4.fc39 x86_64 124 k yaml-cpp-0.7.0-4.fc39.src.rpm fedora yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.",
+    "summary": "A YAML parser and emitter for C++",
+    "license": "MIT",
+    "URL": "https://github.com/jbeder/yaml-cpp"
+  },
+  "zlib": {
+    "description": "Zlib is a general-purpose, patent-free, lossless data compression library which is used by many different programs. Available Packages zlib 1.2.13 4.fc39 i686 93 k zlib-1.2.13-4.fc39.src.rpm fedora Zlib is a general-purpose, patent-free, lossless data compression library which is used by many different programs.",
+    "summary": "Compression and decompression library",
+    "license": "Zlib AND BSL-1.0",
+    "URL": "https://www.zlib.net/"
+  },
+  "zstd": {
+    "description": "Zstd, short for Zstandard, is a fast lossless compression algorithm, targeting real-time compression scenarios at zlib-level compression ratio.",
+    "summary": "Zstd compression library",
+    "license": "BSD-3-Clause AND GPL-2.0-only",
+    "URL": "https://github.com/facebook/zstd"
+  }
+}
