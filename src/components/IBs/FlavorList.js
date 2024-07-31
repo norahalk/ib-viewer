@@ -20,7 +20,7 @@ const FlavorList = () => {
   const rowsPerPage = 20;
 
   useEffect(() => {
-    axios.get('/api/api/folders')
+    axios.get('/api/folders')
       .then(response => setFlavors(response.data[ib][date]))
       .catch(error => console.error('Error fetching data:', error));
   }, [ib, date]);
