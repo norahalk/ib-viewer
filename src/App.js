@@ -18,9 +18,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<IBList />} />
                         <Route path="/about" element={<About />} />
-                        <Route path="/dates/:ib" element={<DateList />} />
-                        <Route path="/flavors/:ib/:date" element={<FlavorList />} />
-                        <Route path="/flavors/:ib/:date/packages" element={<PackageList />} />
+                        <Route path="/:ib/dates" element={<DateList />} />
+                        <Route path="/:ib/:date/flavors" element={<FlavorList />} />
+                        <Route path="/:ib/:date/:flavor/packages" element={<PackageList />} />
                         <Route path="/package/:packageName" element={<PackageDetails />} />
 
 

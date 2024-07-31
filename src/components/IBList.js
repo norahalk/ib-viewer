@@ -50,7 +50,7 @@ const IBList = () => {
                 }}
               >
                 <TableCell align="center">
-                  <Link to={`/dates/${ib}`}>{ib}</Link>
+                  <Link to={`/${ib}/dates`}>{ib}</Link>
                 </TableCell>
               </TableRow>
             ))}

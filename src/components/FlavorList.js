@@ -50,7 +50,7 @@ const FlavorList = () => {
                 }}
               >
                 <TableCell align="center">
-                  <Link to={`/flavors/${ib}/${date}/packages`}>{flavor}</Link>
+                  <Link to={`/${ib}/${date}/${flavor}/packages`}>{flavor}</Link>
                 </TableCell>
               </TableRow>
             ))}

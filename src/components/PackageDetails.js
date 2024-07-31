@@ -20,7 +20,7 @@ const PackageDetails = () => {
 
   return (
     <Container>
-      <Paper style={{ padding: "20px", marginTop: "20px" }}>
+      <Paper style={{ padding: "25px", marginTop: "100px" }}>
         <Typography variant="h4" gutterBottom>
           {packageName}
         </Typography>

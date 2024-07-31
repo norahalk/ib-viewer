@@ -51,7 +51,7 @@ const DateList = () => {
                 }}
               >
                 <TableCell align="center">
-                  <Link to={`/flavors/${ib}/${date}`}>{date}</Link>
+                  <Link to={`/${ib}/${date}/flavors/`}>{date}</Link>
                 </TableCell>
               </TableRow>
             ))}
