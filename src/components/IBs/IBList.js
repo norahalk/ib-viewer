@@ -12,7 +12,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import SearchBar from "../SearchBar";
+import SearchBar from "../Search/SearchBar";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

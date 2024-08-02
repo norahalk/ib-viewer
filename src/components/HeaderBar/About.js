@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom/dist";
-import cmsLogo from "../cms-logo.png";
+import cmsLogo from "../../cms-logo.png";
 
 const About = () => {
   return (

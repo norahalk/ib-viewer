@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import dataJSON from "../cmssw-ib.json";
+import dataJSON from "../../cmssw-ib.json";
 import { useTable, useGlobalFilter, usePagination } from "react-table";
 import { Link } from "react-router-dom";
 import {

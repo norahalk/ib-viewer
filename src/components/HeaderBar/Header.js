@@ -2,7 +2,7 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Container } from "@mui/material";
 import { Link } from "react-router-dom";
-import cmsLogo from "../cms-logo.png";
+import cmsLogo from "../../cms-logo.png";
 
 const Header = () => {
   return (

@@ -1,7 +1,7 @@
 // src/components/PackageDetails.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import packageDetails from "../JSON/package_details.json";
+import packageDetails from "../../JSON/package_details.json";
 import { Container, Typography, Paper } from "@mui/material";
 
 const PackageDetails = () => {
