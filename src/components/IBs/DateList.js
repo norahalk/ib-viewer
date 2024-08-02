@@ -30,11 +30,11 @@ const DateList = () => {
     setPage(newPage);
   };
 
-  const displayedRows = Object.keys(dates).slice(
+  let displayedRows = Object.keys(dates).slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
-
+  displayedRows = displayedRows.reverse();
   return (
     <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>

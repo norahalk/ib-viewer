@@ -18,22 +18,18 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <form
-        onSubmit={handleSearch}
-        style={{ display: "flex", alignItems: "center", marginTop: "20px" }}
-      >
-        <TextField
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search..."
-          variant="outlined"
-          fullWidth
-          margin="normal"
-        />
-        <div style={{ display: "block", verticalAlign: "middle" }}>
-          <FormControlLabel control={<Checkbox />} label="IBs" />
-          <FormControlLabel control={<Checkbox />} label="Releases" />
-
+      <form onSubmit={handleSearch}>
+        <div
+          style={{ display: "flex", alignItems: "center", marginTop: "20px" }}
+        >
+          <TextField
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search..."
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
           <Button
             type="submit"
             variant="contained"
@@ -42,6 +38,9 @@ const SearchBar = () => {
             Search
           </Button>
         </div>
+
+        <FormControlLabel control={<Checkbox />} label="IBs" />
+        <FormControlLabel control={<Checkbox />} label="Releases" />
       </form>
     </Container>
   );

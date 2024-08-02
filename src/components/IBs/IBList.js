@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -45,6 +46,7 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
 const IBList = () => {
   const [ibData, setIbData] = useState({});
   const [page, setPage] = useState(1);
@@ -66,24 +68,42 @@ const IBList = () => {
     setPage(newPage);
   };
 
-  const displayedRows = Object.keys(ibData).slice(
+  let displayedRows = Object.keys(ibData).slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
 
+  // Reverse the order of the displayed rows
+  displayedRows = displayedRows.reverse();
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Typography variant="h4" gutterBottom style={{ marginTop: "25px" }}>
+        <strong>CMSSW:</strong> Integration Builds & Releases
+      </Typography>
+      <Typography
+        variant="h7"
+        gutterBottom
+        style={{ marginBottom: "25px", marginTop: "25px" }}
+      >
+        Welcome to the <strong>CMSSW website</strong>. Here, you can view all
+        the integration builds and releases for CMSSW with all their details.
+      </Typography>
+      <SearchBar />
+      <Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "25px" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="IBs" {...a11yProps(0)} />
           <Tab label="Releases" {...a11yProps(1)} />
+          <Tab label="IBs" {...a11yProps(0)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
+        Releases
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
         <Container
           style={{
             display: "flex",
@@ -91,20 +111,6 @@ const IBList = () => {
             alignItems: "center",
           }}
         >
-          <Typography variant="h4" gutterBottom style={{ marginTop: "25px" }}>
-            <strong>CMSSW:</strong> Integration Builds & Releases
-          </Typography>
-          <Typography
-            variant="h7"
-            gutterBottom
-            style={{ marginBottom: "25px", marginTop: "25px" }}
-          >
-            Welcome to the <strong>CMSSW website</strong>. Here, you can view
-            all the integration builds and releases for CMSSW with all their
-            details.
-          </Typography>
-          <SearchBar />
-
           <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
             <Table>
               <TableBody>
@@ -131,10 +137,7 @@ const IBList = () => {
               style={{ marginTop: "20px" }}
             />
           )}
-        </Container>{" "}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Releases
+        </Container>
       </CustomTabPanel>
     </Box>
   );
