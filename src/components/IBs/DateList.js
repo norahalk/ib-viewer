@@ -11,7 +11,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import { DataContext } from '../../contexts/DataContext';
+import { DataContext } from "../../contexts/DataContext";
 
 const DateList = () => {
   const { ib } = useParams();
@@ -24,6 +24,10 @@ const DateList = () => {
     setPage(newPage);
   };
 
+  // Reverse the keys of the dates object
+  const reversedDates = Object.keys(dates).reverse();
+  const paginatedDates = reversedDates.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
   return (
     <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
@@ -32,7 +36,7 @@ const DateList = () => {
       <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
         <Table>
           <TableBody>
-          {Object.keys(dates).map((date,index) => (
+            {paginatedDates.map((date, index) => (
               <TableRow
                 key={date}
                 style={{
@@ -47,9 +51,9 @@ const DateList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {Object.keys(dates).length > rowsPerPage && (
+      {reversedDates.length > rowsPerPage && (
         <Pagination
-          count={Math.ceil(Object.keys(dates).length / rowsPerPage)}
+          count={Math.ceil(reversedDates.length / rowsPerPage)}
           page={page}
           onChange={handleChangePage}
           style={{ marginTop: "20px" }}

@@ -165,7 +165,6 @@ a:link, a:visited {
   text-decoration: none;
   display: inline-block;
   font-size: large;
-  text-transform: capitalize;
 }
 
 a:hover, a:active {

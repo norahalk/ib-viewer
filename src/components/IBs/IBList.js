@@ -10,13 +10,13 @@ import {
   Pagination,
   Container,
   Typography,
+  Tabs,
+  Tab,
+  Box,
 } from "@mui/material";
-import SearchBar from "../Search/SearchBar";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import { DataContext } from '../../contexts/DataContext';
+import SearchBar from "../Search/SearchBar";
+import { DataContext } from "../../contexts/DataContext";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +51,7 @@ const IBList = () => {
   const data = useContext(DataContext);
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,6 +60,10 @@ const IBList = () => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
+  // Reverse the keys of the data object
+  const reversedKeys = Object.keys(data).reverse();
+  const paginatedKeys = reversedKeys.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -99,7 +103,7 @@ const IBList = () => {
           <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
             <Table>
               <TableBody>
-                {Object.keys(data).map((ib, index) => (
+                {paginatedKeys.map((ib, index) => (
                   <TableRow
                     key={ib}
                     style={{
@@ -114,9 +118,9 @@ const IBList = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          {Object.keys(data).length > rowsPerPage && (
+          {reversedKeys.length > rowsPerPage && (
             <Pagination
-              count={Math.ceil(Object.keys(data).length / rowsPerPage)}
+              count={Math.ceil(reversedKeys.length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
               style={{ marginTop: "20px" }}
