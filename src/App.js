@@ -11,31 +11,34 @@ import PackageList from "./components/Packages/PackageList";
 import PackageDetails from "./components/Packages/PackageDetails";
 import Layout from "./components/HeaderBar/Layout";
 import SearchResult from "./components/Search/SearchResult";
+import { DataProvider } from './contexts/DataContext';
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<IBList />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/:ib/dates" element={<DateList />} />
-            <Route path="/:ib/:date/flavors" element={<FlavorList />} />
-            <Route
-              path="/:ib/:date/:flavor/architectures"
-              element={<ArchitectureList />}
-            />
-            <Route
-              path="/:ib/:date/:flavor/:architecture/packages"
-              element={<PackageList />}
-            />
-            <Route path="/package/:packageName" element={<PackageDetails />} />
-            <Route path="/search" element={<SearchResult />} />
-          </Routes>
-        </div>
-      </Layout>
-    </Router>
+    <DataProvider>
+      <Router>
+        <Layout>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<IBList />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/:ib/dates" element={<DateList />} />
+              <Route path="/:ib/:date/flavors" element={<FlavorList />} />
+              <Route
+                path="/:ib/:date/:flavor/architectures"
+                element={<ArchitectureList />}
+              />
+              <Route
+                path="/:ib/:date/:flavor/:architecture/packages"
+                element={<PackageList />}
+              />
+              <Route path="/package/:packageName" element={<PackageDetails />} />
+              <Route path="/search" element={<SearchResult />} />
+            </Routes>
+          </div>
+        </Layout>
+      </Router>
+    </DataProvider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { DataContext } from '../../contexts/DataContext';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +49,7 @@ function a11yProps(index) {
 }
 
 const IBList = () => {
-  const [ibData, setIbData] = useState({});
+  const data = useContext(DataContext);
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
   const [value, setValue] = React.useState(0);
@@ -57,24 +58,9 @@ const IBList = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    axios
-      .get("/api/folders")
-      .then((response) => setIbData(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
-  let displayedRows = Object.keys(ibData).slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
-
-  // Reverse the order of the displayed rows
-  displayedRows = displayedRows.reverse();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -114,7 +100,7 @@ const IBList = () => {
           <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
             <Table>
               <TableBody>
-                {displayedRows.map((ib, index) => (
+                {Object.keys(data).map((ib, index) => (
                   <TableRow
                     key={ib}
                     style={{
@@ -129,9 +115,9 @@ const IBList = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          {Object.keys(ibData).length > rowsPerPage && (
+          {Object.keys(data).length > rowsPerPage && (
             <Pagination
-              count={Math.ceil(Object.keys(ibData).length / rowsPerPage)}
+              count={Math.ceil(Object.keys(data).length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
               style={{ marginTop: "20px" }}

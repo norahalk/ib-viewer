@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -11,19 +11,13 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import { DataContext } from '../../contexts/DataContext';
 
 const ArchitectureList = () => {
   const { ib, date, flavor } = useParams();
-  const [architectures, setArchitectures] = useState([]);
+  const data = useContext(DataContext);
+  const architectures = (data[ib] && data[ib][date] && data[ib][date][flavor]) || [];
 
-  useEffect(() => {
-    axios.get('/api/folders')
-      .then(response => {
-        const data = response.data[ib][date][flavor];
-        setArchitectures(data);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, [ib, date, flavor]);
 
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
@@ -33,7 +27,7 @@ const ArchitectureList = () => {
       <TableContainer component={Paper} style={{ maxWidth: '800px' }}>
         <Table>
           <TableBody>
-            {architectures.map((architecture, index) => (
+          {architectures.map((architecture,index) => (
               <TableRow
                 key={architecture}
                 style={{

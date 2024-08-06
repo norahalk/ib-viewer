@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -12,29 +12,19 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import { DataContext } from '../../contexts/DataContext';
 
 const DateList = () => {
   const { ib } = useParams();
-  const [dates, setDates] = useState({});
+  const data = useContext(DataContext);
+  const dates = data[ib] || {};
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
-
-  useEffect(() => {
-    axios
-      .get("/api/folders")
-      .then((response) => setDates(response.data[ib]))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, [ib]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  let displayedRows = Object.keys(dates).slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
-  displayedRows = displayedRows.reverse();
   return (
     <Container style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
@@ -43,7 +33,7 @@ const DateList = () => {
       <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
         <Table>
           <TableBody>
-            {displayedRows.map((date, index) => (
+          {Object.keys(dates).map((date,index) => (
               <TableRow
                 key={date}
                 style={{

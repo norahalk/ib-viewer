@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -12,31 +12,21 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import { DataContext } from '../../contexts/DataContext';
 
 const FlavorList = () => {
   const { ib, date } = useParams();
-  const [flavors, setFlavors] = useState([]);
+  const data = useContext(DataContext);
+  const flavors = (data[ib] && data[ib][date]) || [];
+  const flavorsArray = Object.keys(flavors);
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
 
-  useEffect(() => {
-    axios.get('/api/folders')
-      .then(response => {
-        const data = response.data[ib][date];
-        const flavorArray = Object.keys(data);
-        setFlavors(flavorArray);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, [ib, date]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const displayedRows = Array.isArray(flavors) ? flavors.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  ) : [];
 
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
@@ -46,7 +36,7 @@ const FlavorList = () => {
       <TableContainer component={Paper} style={{ maxWidth: '800px' }}>
         <Table>
           <TableBody>
-            {displayedRows.map((flavor, index) => (
+          {flavorsArray.map((flavor,index) => (
               <TableRow
                 key={flavor}
                 style={{
@@ -61,9 +51,9 @@ const FlavorList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {flavors.length > rowsPerPage && (
+      {flavorsArray.length > rowsPerPage && (
         <Pagination
-          count={Math.ceil(flavors.length / rowsPerPage)}
+          count={Math.ceil(flavorsArray.length / rowsPerPage)}
           page={page}
           onChange={handleChangePage}
           style={{ marginTop: '20px' }}
