@@ -34,7 +34,7 @@ const ArchitectureList = () => {
                 }}
               >
                 <TableCell align="center">
-                  <Link to={`/${ib}/${date}/${flavor}/${architecture}/packages`}>{architecture}</Link>
+                  <Link to={`/${ib}/${date}/${flavor}/${architecture}/packages`} style={{textTransform:"lowercase"}}>{architecture}</Link>
                 </TableCell>
               </TableRow>
             ))}
