@@ -17,6 +17,7 @@ import {
 import PropTypes from "prop-types";
 import SearchBar from "../Search/SearchBar";
 import { DataContext } from "../../contexts/DataContext";
+import Releases from "../Releases/Releases";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,7 +91,7 @@ const IBList = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Releases
+        <Releases/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Container
