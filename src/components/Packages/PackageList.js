@@ -1,184 +1,106 @@
-import React, { useEffect, useState } from "react";
-import dataJSON from "../../cmssw-ib.json";
-import { useTable, useGlobalFilter, usePagination } from "react-table";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { DataContext } from "../../contexts/DataContext";
 import {
-  Button,
-  Container,
-  TextField,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
+  TablePagination,
+  Box,
   Typography,
+  TextField,
 } from "@mui/material";
 
-const PackageList = () => {
-  const [data, setData] = useState([]);
+const Packages = () => {
+  const { ibs } = useContext(DataContext);
+  const { version, architecture } = useParams();
 
-  useEffect(() => {
-    const formattedData = Object.values(dataJSON); // Convert the JSON object to an array
-    setData(formattedData);
-  }, []);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "name",
-        className: "center",
-        Cell: ({ row }) => (
-          <Typography variant="body1" className="center">
-            <Link to={`/package/${row.original.name}`}>
-              {row.original.name}
-            </Link>
-          </Typography>
-        ),
-      },
-      {
-        Header: "Version",
-        accessor: "version",
-        className: "center",
-        Cell: ({ row }) => {
-          const versionNumber = row.original.version.split("-")[0];
-          return (
-            <Typography variant="body1" className="center">
-              {versionNumber}
-            </Typography>
-          );
-        },
-      },
-    ],
-    []
+  const ib = Object.values(ibs).find(
+    (ib) => ib.version === version && ib.architecture === architecture
   );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    setGlobalFilter,
-    state: { pageIndex, pageSize, globalFilter },
-  } = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 5 } }, // Initial page index and page size
-    useGlobalFilter,
-    usePagination
+  const [page, setPage] = useState(0); // Pagination state for current page
+  const [rowsPerPage, setRowsPerPage] = useState(10); // State for rows per page
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+
+  if (!ib) {
+    return <div>No data found for this version and architecture</div>;
+  }
+
+  const packagesArray = Object.entries(ib.packages); // Convert packages object to array
+
+  // Handle change in page number
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // Handle change in rows per page
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page
+  };
+
+  // Handle change in search query
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+    setPage(0); // Reset to first page
+  };
+
+  // Filter packages based on search query
+  const filteredPackages = packagesArray.filter(([packageName]) =>
+    packageName.toLowerCase().includes(searchQuery)
   );
 
   return (
-    <Container>
-      <div className="search-bar">
-        <TextField
-          value={globalFilter || ""}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
-          variant="outlined"
-          fullWidth
-          margin="normal"
-        />
-      </div>
+    <Box sx={{ margin: "20px" }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Packages used in {architecture}
+      </Typography>
+      <TextField
+        label="Search Packages"
+        variant="outlined"
+        fullWidth
+        value={searchQuery}
+        onChange={handleSearchChange}
+        sx={{ marginBottom: "20px" }}
+      />
       <TableContainer component={Paper}>
-        <Table {...getTableProps()} className="table">
-          <TableHead>
-            {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <TableCell {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
+        <Table>
+          <TableBody>
+            {filteredPackages
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) // Pagination logic
+              .map(([packageName, packageVersion], index) => (
                 <TableRow
-                  {...row.getRowProps()}
-                  className={row.index % 2 === 0 ? "even" : "odd"}
+                  key={packageName}
+                  style={{
+                    backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
+                  }}
                 >
-                  {row.cells.map((cell) => (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </TableCell>
-                  ))}
+                  <TableCell>
+                    <Link to={`/packageDetails/${packageName}`}>
+                      {packageName}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{packageVersion}</TableCell>
                 </TableRow>
-              );
-            })}
+              ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={filteredPackages.length} // Total number of filtered packages
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]} // Options for rows per page
+        />
       </TableContainer>
-      <div className="pagination">
-        <Button onClick={() => gotoPage(0)} disabled={pageIndex === 0}>
-          {"<<"}
-        </Button>
-        <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {"<"}
-        </Button>
-        <span>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </span>
-        <Button onClick={() => nextPage()} disabled={!canNextPage}>
-          {">"}
-        </Button>
-        <Button
-          onClick={() => gotoPage(pageCount - 1)}
-          disabled={pageIndex === pageCount - 1}
-        >
-          {">>"}
-        </Button>
-        <span>
-          Go to page:{" "}
-          <TextField
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
-            }}
-            style={{ width: "75px" }}
-            variant="outlined"
-            size="small"
-          />
-        </span>
-        <TextField
-          select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-          size="small"
-          style={{ marginLeft: "10px" }}
-        >
-          {[5, 10, 25, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </TextField>
-      </div>
-    </Container>
+    </Box>
   );
 };
 
-export default PackageList;
+export default Packages;

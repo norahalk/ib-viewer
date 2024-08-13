@@ -5,17 +5,34 @@ import axios from 'axios';
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [data, setData] = useState({});
+  const [ibs, setIbs] = useState([]);
+  const [releases, setReleases] = useState([]);
 
   useEffect(() => {
-    axios
-      .post("/api/searchIBs")
-      .then((response) => setData(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const fetchIbs = async () => {
+      try {
+        const response = await axios.post("/api/searchIBs");
+        setIbs(response.data);
+      } catch (error) {
+        console.error("Error fetching IBs data:", error);
+      }
+    };
+
+    const fetchReleases = async () => {
+      try {
+        const response = await axios.post("/api/searchReleases");
+        setReleases(response.data);
+      } catch (error) {
+        console.error("Error fetching Releases data:", error);
+      }
+    };
+
+    fetchIbs();
+    fetchReleases();
   }, []);
 
   return (
-    <DataContext.Provider value={data}>
+    <DataContext.Provider value={{ ibs, releases }}>
       {children}
     </DataContext.Provider>
   );

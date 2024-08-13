@@ -1,47 +1,36 @@
-import React, {useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  Container,
-  Typography,
-} from '@mui/material';
-import { DataContext } from '../../contexts/DataContext';
+import React, { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { DataContext } from "../../contexts/DataContext";
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography } from "@mui/material";
 
 const ArchitectureList = () => {
-  const { ib, date, flavor } = useParams();
-  const data = useContext(DataContext);
-  const architectures = (data[ib] && data[ib][date] && data[ib][date][flavor]) || [];
+  const { ibs } = useContext(DataContext);
+  const { version, flavor } = useParams();
 
+  const ibsForVersionAndFlavor = Object.values(ibs).filter(ib => ib.version === version && ib.flavor === flavor);
+
+  if (ibsForVersionAndFlavor.length === 0) {
+    return <div>No data found for this version and date</div>;
+  }
 
   return (
-    <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+    <TableContainer component={Paper}>
       <Typography variant="h4" gutterBottom>
-        Architectures for {flavor} on {date}
-      </Typography>
-      <TableContainer component={Paper} style={{ maxWidth: '800px' }}>
+        {flavor} Architectures for <strong>{version}</strong>
+      </Typography>    
         <Table>
-          <TableBody>
-          {architectures.map((architecture,index) => (
-              <TableRow
-                key={architecture}
-                style={{
-                  backgroundColor: index % 2 === 0 ? '#f5f5f5' : '#ffffff',
-                }}
-              >
-                <TableCell align="center">
-                  <Link to={`/${ib}/${date}/${flavor}/${architecture}/packages`} style={{textTransform:"lowercase"}}>{architecture}</Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+        <TableBody>
+          {ibsForVersionAndFlavor.map((ib, index) => (
+            <TableRow key={index}>
+              <TableCell align="center">
+                {/* Link to the packages page for this architecture */}
+                <Link to={`/${version}/packages/${ib.architecture}`}>{ib.architecture}</Link>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
