@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 import SearchBar from "../Search/SearchBar";
 import { DataContext } from "../../contexts/DataContext";
 import Releases from "../Releases/Releases";
+import IBs from "./IBs";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +49,7 @@ function a11yProps(index) {
   };
 }
 
-const IBList = () => {
+const Homepage = () => {
   const data = useContext(DataContext);
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
@@ -63,8 +64,11 @@ const IBList = () => {
   };
 
   // Reverse the keys of the data object
-  const reversedKeys = Object.keys(data).reverse();
-  const paginatedKeys = reversedKeys.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+  const reversedKeys = Object.keys(data);
+  const paginatedKeys = reversedKeys.slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -91,46 +95,13 @@ const IBList = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Releases/>
+        <Releases />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Container
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
-            <Table>
-              <TableBody>
-                {paginatedKeys.map((ib, index) => (
-                  <TableRow
-                    key={ib}
-                    style={{
-                      backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
-                    }}
-                  >
-                    <TableCell align="center">
-                      <Link to={`/${ib}/dates`}>{ib}</Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {reversedKeys.length > rowsPerPage && (
-            <Pagination
-              count={Math.ceil(reversedKeys.length / rowsPerPage)}
-              page={page}
-              onChange={handleChangePage}
-              style={{ marginTop: "20px" }}
-            />
-          )}
-        </Container>
+        <IBs />
       </CustomTabPanel>
     </Box>
   );
 };
 
-export default IBList;
+export default Homepage;

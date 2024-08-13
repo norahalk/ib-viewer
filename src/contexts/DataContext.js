@@ -9,9 +9,9 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get('/api/folders')
+      .post("/api/searchIBs")
       .then((response) => setData(response.data))
-      .catch((error) => console.error('Error fetching data:', error));
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   return (
