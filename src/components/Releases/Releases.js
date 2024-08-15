@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
 import {
   Table,
   TableBody,
@@ -10,18 +9,12 @@ import {
   TablePagination,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { DataContext } from "../../contexts/DataContext";
 
 function Releases() {
-  const [releases, setReleases] = useState([]);
+  const { releases} = useContext(DataContext); // Get IBs data from context
   const [page, setPage] = useState(0); // State to track the current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State to track rows per page
-
-  useEffect(() => {
-    axios
-      .post("/api/searchReleases")
-      .then((response) => setReleases(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {

@@ -1,24 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  Pagination,
-  Container,
   Typography,
   Tabs,
   Tab,
   Box,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import SearchBar from "../Search/SearchBar";
-import { DataContext } from "../../contexts/DataContext";
+import SearchBar from "./Search/SearchBar";
 import Releases from "../Releases/Releases";
-import IBs from "./IBs";
+import IBs from "../IBs/IBs";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,25 +40,10 @@ function a11yProps(index) {
 }
 
 const Homepage = () => {
-  const data = useContext(DataContext);
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 20;
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  // Reverse the keys of the data object
-  const reversedKeys = Object.keys(data);
-  const paginatedKeys = reversedKeys.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
 
   return (
     <Box sx={{ width: "100%" }}>

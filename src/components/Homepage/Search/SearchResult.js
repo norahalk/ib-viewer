@@ -1,7 +1,7 @@
 // src/components/SearchResults.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import packageDetails from '../../JSON/package_details.json';
+import packageDetails from '../../../JSON/package_details.json';
 import { Container, Typography, Paper } from '@mui/material';
 
 const useQuery = () => {

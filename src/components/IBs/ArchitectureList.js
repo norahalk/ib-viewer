@@ -6,7 +6,6 @@ import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typograph
 const ArchitectureList = () => {
   const { ibs } = useContext(DataContext);
   const { version, flavor } = useParams();
-
   const ibsForVersionAndFlavor = Object.values(ibs).filter(ib => ib.version === version && ib.flavor === flavor);
 
   if (ibsForVersionAndFlavor.length === 0) {
@@ -24,7 +23,7 @@ const ArchitectureList = () => {
             <TableRow key={index}>
               <TableCell align="center">
                 {/* Link to the packages page for this architecture */}
-                <Link to={`/${version}/packages/${ib.architecture}`}>{ib.architecture}</Link>
+                <Link to={`/IB/${version}/${ib.architecture}/packages`}>{ib.architecture}</Link>
               </TableCell>
             </TableRow>
           ))}

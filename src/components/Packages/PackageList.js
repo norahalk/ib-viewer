@@ -12,25 +12,30 @@ import {
   Box,
   Typography,
   TextField,
+  TableHead,
 } from "@mui/material";
 
-const Packages = () => {
-  const { ibs } = useContext(DataContext);
-  const { version, architecture } = useParams();
+const Packages = ({ type }) => {
+  const { ibs, releases } = useContext(DataContext);
+  const { version, architecture } = useParams(); // Extract version and architecture from URL params
 
-  const ib = Object.values(ibs).find(
-    (ib) => ib.version === version && ib.architecture === architecture
+  // Determine whether to use IBs or Releases based on the `type` prop
+  const data = type === "IB" ? ibs : releases;
+
+  // Find the relevant IB or Release by version and architecture
+  const item = Object.values(data).find(
+    (item) => item.version === version && item.architecture === architecture
   );
 
   const [page, setPage] = useState(0); // Pagination state for current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State for rows per page
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
-  if (!ib) {
+  if (!item) {
     return <div>No data found for this version and architecture</div>;
   }
 
-  const packagesArray = Object.entries(ib.packages); // Convert packages object to array
+  const packagesArray = Object.entries(item.packages); // Convert packages object to array
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -57,7 +62,7 @@ const Packages = () => {
   return (
     <Box sx={{ margin: "20px" }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Packages used in {architecture}
+        Packages used in <strong>{architecture}</strong>
       </Typography>
       <TextField
         label="Search Packages"
@@ -69,6 +74,12 @@ const Packages = () => {
       />
       <TableContainer component={Paper}>
         <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell><strong>Package Name</strong></TableCell>
+              <TableCell><strong>Version</strong></TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             {filteredPackages
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) // Pagination logic
