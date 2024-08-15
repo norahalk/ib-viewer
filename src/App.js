@@ -9,10 +9,10 @@ import About from "./components/HeaderBar/About";
 import PackageList from "./components/Packages/PackageList";
 import PackageDetails from "./components/Packages/PackageDetails";
 import Layout from "./components/HeaderBar/Layout";
-import SearchResult from "./components/Homepage/Search/SearchResult";
 import { DataProvider } from './contexts/DataContext';
 import ArchitecturePage from "./components/Releases/ArchitecturePage";
 import Homepage from "./components/Homepage/Homepage";
+import SearchResults from "./components/Homepage/Search/SearchResults";
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
               {/* Homepage */}
               <Route path="/" element={<Homepage />} />
               <Route path="/about" element={<About />} />
-              <Route path="/search" element={<SearchResult />} />
+              <Route path="/searchResults" element={<SearchResults />} />
 
               {/* IBs */}
               <Route path="/:version/dates" element={<DateList />} />
