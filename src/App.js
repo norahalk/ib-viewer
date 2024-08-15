@@ -31,7 +31,7 @@ function App() {
               {/* IBs */}
               <Route path="/:version/dates" element={<DateList />} />
               <Route path="/:version/flavors/:date" element={<FlavorList />} />
-              <Route path="/:version/architectures/:flavor" element={<ArchitectureList />} />
+              <Route path="/IB/:version/:date/architectures/:flavor" element={<ArchitectureList />} />
               <Route path="/IB/:version/:architecture/packages" element={<PackageList type="IB"/>} />
               <Route path="/packageDetails/:packageName" element={<PackageDetails />} />
 

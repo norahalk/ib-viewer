@@ -28,7 +28,7 @@ const Packages = ({ type }) => {
   );
 
   const [page, setPage] = useState(0); // Pagination state for current page
-  const [rowsPerPage, setRowsPerPage] = useState(10); // State for rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(5); // State for rows per page
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   if (!item) {
@@ -60,9 +60,9 @@ const Packages = ({ type }) => {
   );
 
   return (
-    <Box sx={{ margin: "20px" }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Packages used in <strong>{architecture}</strong>
+    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+     <Typography variant="h4" gutterBottom>
+      Packages used in <strong>{architecture}</strong>
       </Typography>
       <TextField
         label="Search Packages"

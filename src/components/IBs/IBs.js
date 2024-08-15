@@ -1,16 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  Pagination,
-  Container,
-  Box,
-} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Pagination, Container, Box } from "@mui/material";
 import { DataContext } from "../../contexts/DataContext";
 
 const IBs = () => {
@@ -22,17 +12,9 @@ const IBs = () => {
     setPage(newPage);
   };
 
-  // Group IBs by version
-  const groupedByVersion = Object.values(ibs).reduce((acc, ib) => {
-    if (!acc[ib.version]) {
-      acc[ib.version] = [];
-    }
-    acc[ib.version].push(ib);
-    return acc;
-  }, {});
-
-  const versionKeys = Object.keys(groupedByVersion).reverse();
-  const paginatedKeys = versionKeys.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+  // Group IBs by version and remove duplicates
+  const uniqueVersions = [...new Set(Object.values(ibs).map(ib => ib.version))].reverse();
+  const paginatedVersions = uniqueVersions.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -46,7 +28,7 @@ const IBs = () => {
         <TableContainer component={Paper} style={{ maxWidth: "800px" }}>
           <Table>
             <TableBody>
-              {paginatedKeys.map((version, index) => (
+              {paginatedVersions.map((version, index) => (
                 <TableRow
                   key={version}
                   style={{
@@ -62,9 +44,9 @@ const IBs = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        {versionKeys.length > rowsPerPage && (
+        {uniqueVersions.length > rowsPerPage && (
           <Pagination
-            count={Math.ceil(versionKeys.length / rowsPerPage)}
+            count={Math.ceil(uniqueVersions.length / rowsPerPage)}
             page={page}
             onChange={handleChangePage}
             style={{ marginTop: "20px" }}

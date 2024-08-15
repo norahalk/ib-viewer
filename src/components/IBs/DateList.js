@@ -1,65 +1,33 @@
 import React, { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  Typography,
-  TablePagination,
-} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper, Typography, TablePagination } from "@mui/material";
 
 const DateList = () => {
   const { ibs } = useContext(DataContext);
   const { version } = useParams(); // Get version from URL params
 
-  // State for pagination
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // Filter IBs for the specific version
-  const ibsForVersion = Object.values(ibs).filter((ib) => ib.version === version);
+  // Filter IBs for the specific version and group by unique date
+  const uniqueDates = [...new Set(Object.values(ibs).filter(ib => ib.version === version).map(ib => ib.date.split("T")[0]))]
+    .sort((a, b) => b.localeCompare(a));
 
-  if (ibsForVersion.length === 0) {
+  if (uniqueDates.length === 0) {
     return <div>No data found for this version</div>;
   }
 
-  // Group IBs by unique date (without time)
-  const groupedByDate = ibsForVersion.reduce((acc, ib) => {
-    const date = ib.date.split("-").slice(0, 3).join("-"); // Extract date without time
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(ib);
-    return acc;
-  }, {});
-
-  // Create an array of unique dates with the earliest time for each date
-  let uniqueDatesWithTimes = Object.entries(groupedByDate).map(([date, ibs]) => {
-    // Sort IBs by time and get the earliest one (or choose your preferred method to display time)
-    const earliestIB = ibs.sort((a, b) => a.date.localeCompare(b.date))[0];
-    return earliestIB.date; // Return the full date including time
-  });
-
-  // Sort dates in descending order to show recent dates first
-  uniqueDatesWithTimes = uniqueDatesWithTimes.sort((a, b) => b.localeCompare(a));
-
-  // Handle change in page number
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  // Handle change in rows per page
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0); // Reset to first page
   };
 
-  // Get the data to display for the current page
-  const paginatedDates = uniqueDatesWithTimes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const paginatedDates = uniqueDates.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <TableContainer component={Paper}>
@@ -80,7 +48,7 @@ const DateList = () => {
       </Table>
       <TablePagination
         component="div"
-        count={uniqueDatesWithTimes.length} // Total number of unique dates
+        count={uniqueDates.length} // Total number of unique dates
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
