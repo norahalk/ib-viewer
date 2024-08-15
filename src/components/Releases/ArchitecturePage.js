@@ -13,10 +13,15 @@ import { Link, useParams } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext";
 
 function ArchitecturePage() {
-  const { releaseName } = useParams();
+  const { releaseName } = useParams(); // Get the release name from URL params
   const { releases } = useContext(DataContext); 
   const [page, setPage] = useState(0); // State to track the current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State to track rows per page
+
+  // Filter the releases to get the unique architectures for the selected release
+  const uniqueArchitectures = [...new Set(releases
+    .filter(release => release.release_name === releaseName)
+    .map(release => release.architecture))];
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -30,7 +35,7 @@ function ArchitecturePage() {
   };
 
   // Pagination logic
-  const paginatedReleases = releases.slice(
+  const paginatedArchitectures = uniqueArchitectures.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -38,17 +43,22 @@ function ArchitecturePage() {
   return (
     <div>
       <TableContainer component={Paper}>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom 
+          style={{ marginBottom: "25px", marginTop: "25px" }}
+        >
+          Architectures for <strong>{releaseName}</strong>
+        </Typography>
         <Table>
-          <Typography variant="h4" component="h1" gutterBottom style={{ marginBottom: "25px", marginTop: "25px" }}
-          >
-            Architectures for <strong>{releaseName}</strong>
-          </Typography>
           <TableBody>
-            {paginatedReleases.map((release) => (
-              <TableRow key={release.release_name}>
+            {paginatedArchitectures.map((architecture, index) => (
+              <TableRow key={index}>
                 <TableCell>
-                  <Link to={`/release/packages/${release.architecture}`}>
-                    {release.architecture}
+                  {/* Link to the packages page for this architecture */}
+                  <Link to={`/release/packages/${architecture}`}>
+                    {architecture}
                   </Link>
                 </TableCell>
               </TableRow>
@@ -58,7 +68,7 @@ function ArchitecturePage() {
       </TableContainer>
       <TablePagination
         component="div"
-        count={releases.length}
+        count={uniqueArchitectures.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

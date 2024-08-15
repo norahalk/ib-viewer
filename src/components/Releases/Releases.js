@@ -11,10 +11,25 @@ import {
 import { Link } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext";
 
+// Helper function to compare release versions
+const compareReleaseVersions = (a, b) => {
+  const parseVersion = (version) => version.split('_').slice(1).map(Number);
+  
+  const [majorA, minorA, patchA] = parseVersion(a.release_cycle);
+  const [majorB, minorB, patchB] = parseVersion(b.release_cycle);
+
+  if (majorA !== majorB) return majorB - majorA;
+  if (minorA !== minorB) return minorB - minorA;
+  return patchB - patchA;
+};
+
 function Releases() {
-  const { releases} = useContext(DataContext); // Get IBs data from context
+  const { releases } = useContext(DataContext); // Get releases data from context
   const [page, setPage] = useState(0); // State to track the current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State to track rows per page
+
+  // Sort releases by release_cycle in reverse chronological order using the custom comparator
+  const sortedReleases = [...releases].sort(compareReleaseVersions);
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -32,11 +47,12 @@ function Releases() {
       <TableContainer component={Paper}>
         <Table>
           <TableBody>
-            {releases
+            {sortedReleases
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((release) => (
-                <TableRow key={release.architecture}>
+                <TableRow key={release.release_name}>
                   <TableCell>
+                    {/* Link to the ArchitecturePage with the release name */}
                     <Link to={`/architecture/${release.release_name}`}>
                       {release.release_name}
                     </Link>
@@ -48,12 +64,12 @@ function Releases() {
       </TableContainer>
       <TablePagination
         component="div"
-        count={releases.length}
+        count={sortedReleases.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]} // Optional: customize rows per page options
+        rowsPerPageOptions={[5, 10, 25]} 
       />
     </div>
   );
