@@ -36,126 +36,150 @@ const SearchResults = () => {
 
   return (
     <div>
-      {index === "IBs" ? (
-        <Box sx={{ margin: "20px" }}>
-          <Typography variant="h5" gutterBottom>
-            {index} that are using <strong>{query}</strong>
-          </Typography>
-
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Version
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Flavor
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Date
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Architecture
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {currentRows.map((result, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{
-                      backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#ffffff",
-                    }}
-                  >
-                    <TableCell>{result.version}</TableCell>
-                    <TableCell>{result.flavor}</TableCell>
-                    <TableCell>{result.date}</TableCell>
-                    <TableCell>
-                      <Link
-                        to={`/search/${result.version}/${result.architecture}/packages`}
-                        state={{
-                          packages: result.packages,
-                          architecture: result.architecture,
-                        }}
-                      >
-                        {result.architecture}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <TablePagination
-            component="div"
-            count={results.length}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
-          />
-        </Box>
+      {results.length === 0 ? (
+        <Typography variant="h5" gutterBottom sx={{ margin: "20px" }}>
+          No {index} are found that use <strong>{query}</strong>
+        </Typography>
       ) : (
-        <Box sx={{ margin: "20px" }}>
-          <Typography variant="h5" gutterBottom>
-            {index} that are using <strong>{query}</strong>
-          </Typography>
+        <>
+          {index === "IBs" ? (
+            <Box sx={{ margin: "20px" }}>
+              <Typography variant="h5" gutterBottom>
+                {index} that are using <strong>{query}</strong>
+              </Typography>
 
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Release Cycle
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Flavor
-                  </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-                    Architecture
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {currentRows.map((result, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{
-                      backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#ffffff",
-                    }}
-                  >
-                    <TableCell>{result.release_cycle}</TableCell>
-                    <TableCell>{result.flavor}</TableCell>
-                    <TableCell>
-                      <Link
-                        to={`/search/${result.version}/${result.architecture}/packages`}
-                        state={{
-                          packages: result.packages,
-                          architecture: result.architecture,
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Version
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Flavor
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Date
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Architecture
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {currentRows.map((result, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          backgroundColor:
+                            index % 2 === 0 ? "#f9f9f9" : "#ffffff",
                         }}
                       >
-                        {result.architecture}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                        <TableCell>{result.version}</TableCell>
+                        <TableCell>{result.flavor}</TableCell>
+                        <TableCell>{result.date}</TableCell>
+                        <TableCell>
+                          <Link
+                            to={`/search/${result.version}/${result.architecture}/packages`}
+                            state={{
+                              packages: result.packages,
+                              architecture: result.architecture,
+                            }}
+                          >
+                            {result.architecture}
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-          <TablePagination
-            component="div"
-            count={results.length}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
-          />
-        </Box>
+              <TablePagination
+                component="div"
+                count={results.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5, 10, 25]}
+              />
+            </Box>
+          ) : (
+            <Box sx={{ margin: "20px" }}>
+              <Typography variant="h5" gutterBottom>
+                {index} that are using <strong>{query}</strong>
+              </Typography>
+
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Release Cycle
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Flavor
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Architecture
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {currentRows.map((result, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          backgroundColor:
+                            index % 2 === 0 ? "#f9f9f9" : "#ffffff",
+                        }}
+                      >
+                        <TableCell>{result.release_cycle}</TableCell>
+                        <TableCell>{result.flavor}</TableCell>
+                        <TableCell>
+                          <Link
+                            to={`/search/${result.version}/${result.architecture}/packages`}
+                            state={{
+                              packages: result.packages,
+                              architecture: result.architecture,
+                            }}
+                          >
+                            {result.architecture}
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+
+              <TablePagination
+                component="div"
+                count={results.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[5, 10, 25]}
+              />
+            </Box>
+          )}
+        </>
       )}
     </div>
   );
