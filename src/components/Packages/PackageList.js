@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext";
 import {
   Table,
@@ -13,11 +13,13 @@ import {
   Typography,
   TextField,
   TableHead,
+  Button,
 } from "@mui/material";
 
 const Packages = ({ type }) => {
   const { ibs, releases } = useContext(DataContext);
   const { version, architecture } = useParams(); // Extract version and architecture from URL params
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
   // Determine whether to use IBs or Releases based on the `type` prop
   const data = type === "IB" ? ibs : releases;
@@ -54,15 +56,26 @@ const Packages = ({ type }) => {
     setPage(0); // Reset to first page
   };
 
-  // Filter packages based on search query
-  const filteredPackages = packagesArray.filter(([packageName]) =>
-    packageName.toLowerCase().includes(searchQuery)
-  );
+  // Filter and sort packages based on search query, then sort them alphabetically
+  const filteredPackages = packagesArray
+    .filter(([packageName]) =>
+      packageName.toLowerCase().includes(searchQuery)
+    )
+    .sort(([packageNameA], [packageNameB]) =>
+      packageNameA.localeCompare(packageNameB)
+    );
+
+  // Handle "More Info" button click
+  const handleMoreInfo = (packageName) => {
+    navigate(`/${packageName}/packageDetails`);
+  };
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-     <Typography variant="h4" gutterBottom>
-      Packages used in <strong>{architecture}</strong>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "50px" }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Packages used in <strong>{architecture}</strong>
       </Typography>
       <TextField
         label="Search Packages"
@@ -78,6 +91,7 @@ const Packages = ({ type }) => {
             <TableRow>
               <TableCell><strong>Package Name</strong></TableCell>
               <TableCell><strong>Version</strong></TableCell>
+              <TableCell><strong>Package Description</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -90,12 +104,17 @@ const Packages = ({ type }) => {
                     backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
                   }}
                 >
-                  <TableCell>
-                    <Link to={`/${packageName}/packageDetails`}>
-                      {packageName}
-                    </Link>
-                  </TableCell>
+                  <TableCell>{packageName}</TableCell>
                   <TableCell>{packageVersion}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#1e59ae" }}
+                      onClick={() => handleMoreInfo(packageName)}
+                    >
+                      More Info
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

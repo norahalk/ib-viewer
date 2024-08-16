@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -11,10 +11,12 @@ import {
   TablePagination,
   Box,
   Typography,
+  Button,
 } from "@mui/material";
 
 const SearchResults = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Hook to programmatically navigate
   const { results, query, index } = location.state;
 
   const [page, setPage] = useState(0);
@@ -27,6 +29,12 @@ const SearchResults = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleShowPackages = (version, architecture, packages) => {
+    navigate(`/search/${version}/${architecture}/packages`, {
+      state: { packages, architecture },
+    });
   };
 
   const currentRows = results.slice(
@@ -88,6 +96,15 @@ const SearchResults = () => {
                       >
                         Architecture
                       </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                          textAlign: "center",
+                        }}
+                      >
+                        Packages
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -99,19 +116,52 @@ const SearchResults = () => {
                             index % 2 === 0 ? "#f9f9f9" : "#ffffff",
                         }}
                       >
-                        <TableCell>{result.version}</TableCell>
-                        <TableCell>{result.flavor}</TableCell>
-                        <TableCell>{result.date}</TableCell>
-                        <TableCell>
-                          <Link
-                            to={`/search/${result.version}/${result.architecture}/packages`}
-                            state={{
-                              packages: result.packages,
-                              architecture: result.architecture,
-                            }}
+                        <TableCell
+                          sx={{
+                            textAlign: "center",
+                          }}
+                        >
+                          {result.version}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            textAlign: "center",
+                          }}
+                        >
+                          {result.flavor}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            textAlign: "center",
+                          }}
+                        >
+                          {result.date}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            textAlign: "center",
+                          }}
+                        >
+                          {result.architecture}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            textAlign: "center",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() =>
+                              handleShowPackages(
+                                result.version,
+                                result.architecture,
+                                result.packages
+                              )
+                            }
                           >
-                            {result.architecture}
-                          </Link>
+                            Show Packages
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -154,6 +204,11 @@ const SearchResults = () => {
                       >
                         Architecture
                       </TableCell>
+                      <TableCell
+                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                      >
+                        Packages
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -167,16 +222,21 @@ const SearchResults = () => {
                       >
                         <TableCell>{result.release_cycle}</TableCell>
                         <TableCell>{result.flavor}</TableCell>
+                        <TableCell>{result.architecture}</TableCell>
                         <TableCell>
-                          <Link
-                            to={`/search/${result.version}/${result.architecture}/packages`}
-                            state={{
-                              packages: result.packages,
-                              architecture: result.architecture,
-                            }}
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() =>
+                              handleShowPackages(
+                                result.version,
+                                result.architecture,
+                                result.packages
+                              )
+                            }
                           >
-                            {result.architecture}
-                          </Link>
+                            Show Packages
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}

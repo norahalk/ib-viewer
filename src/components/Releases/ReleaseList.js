@@ -10,9 +10,10 @@ import {
   TableHead,
   TextField,
   Box,
+  Button,
 } from "@mui/material";
 import { DataContext } from "../../contexts/DataContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Hook for programmatic navigation
 
 // Helper function to compare release versions
 const compareReleaseVersions = (a, b) => {
@@ -31,6 +32,8 @@ function ReleaseList() {
   const [page, setPage] = useState(0); // State to track the current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State to track rows per page
   const [filter, setFilter] = useState(""); // State for filter input
+
+  const navigate = useNavigate(); // Initialize navigation hook
 
   // Filter releases by release_cycle
   const filteredReleases = releases.filter((release) =>
@@ -54,6 +57,15 @@ function ReleaseList() {
   // Handle filter input change
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
+  };
+
+  // Handle "Show Packages" button click
+  const handleShowPackages = (release) => {
+    navigate(`/release/${release.architecture}/packages`, {
+      state: { release },
+    });
+    window.scrollTo(0, 0); // Scroll to the top of the page
+
   };
 
   return (
@@ -90,6 +102,15 @@ function ReleaseList() {
               >
                 Architecture
               </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                }}
+              >
+                Packages
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -98,10 +119,15 @@ function ReleaseList() {
               .map((release) => (
                 <TableRow key={release.release_name}>
                   <TableCell align="center">{release.release_name}</TableCell>
+                  <TableCell align="center">{release.architecture}</TableCell>
                   <TableCell align="center">
-                    <Link to={`/release/${release.architecture}/packages`}>
-                      {release.architecture}
-                    </Link>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#1e59ae", marginLeft: "10px" }}
+                      onClick={() => handleShowPackages(release)}
+                    >
+                      Show Packages
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

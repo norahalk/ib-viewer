@@ -24,7 +24,6 @@ const About = () => {
           <Link
             to="https://cms-sw.github.io/"
             target="_blank"
-            style={{ color: "#1e59ae", paddingLeft: "7px", margin: "0" }}
           >
             CMSSW homepage
           </Link>

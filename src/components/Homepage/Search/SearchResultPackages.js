@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -12,10 +12,12 @@ import {
   Typography,
   TextField,
   TableHead,
+  Button,
 } from "@mui/material";
 
 const SearchResultPackages = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Hook to programmatically navigate
   const { packages, architecture } = location.state; // Retrieve the packages and architecture from the state
 
   const [page, setPage] = useState(0);
@@ -38,9 +40,19 @@ const SearchResultPackages = () => {
     setPage(0);
   };
 
-  const filteredPackages = packagesArray.filter(([packageName]) =>
-    packageName.toLowerCase().includes(searchQuery)
-  );
+  // Filter packages based on search query and sort alphabetically
+  const filteredPackages = packagesArray
+    .filter(([packageName]) =>
+      packageName.toLowerCase().includes(searchQuery)
+    )
+    .sort(([packageNameA], [packageNameB]) =>
+      packageNameA.localeCompare(packageNameB)
+    );
+
+  // Handle "More Info" button click
+  const handleMoreInfo = (packageName) => {
+    navigate(`/${packageName}/packageDetails`);
+  };
 
   return (
     <Box
@@ -48,7 +60,7 @@ const SearchResultPackages = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        margin: "20px",
+        margin: "50px",
       }}
     >
       <Typography variant="h4" gutterBottom>
@@ -72,6 +84,9 @@ const SearchResultPackages = () => {
               <TableCell>
                 <strong>Version</strong>
               </TableCell>
+              <TableCell>
+                <strong>Package Description</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,13 +99,17 @@ const SearchResultPackages = () => {
                     backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
                   }}
                 >
-                  <TableCell>
-                    <Link to={`/${packageName}/packageDetails`}>
-                      {" "}
-                      {packageName}
-                    </Link>
-                  </TableCell>
+                  <TableCell>{packageName}</TableCell>
                   <TableCell>{packageVersion}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#1e59ae" }}
+                      onClick={() => handleMoreInfo(packageName)}
+                    >
+                      More Info
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

@@ -11,8 +11,9 @@ import {
   TablePagination,
   TextField,
   Box,
+  Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Hook for programmatic navigation
 import { DataContext } from "../../contexts/DataContext";
 
 const IBList = () => {
@@ -20,6 +21,8 @@ const IBList = () => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filter, setFilter] = useState(""); // State for filter input
+  
+  const navigate = useNavigate(); // Initialize navigation hook
 
   // Flatten IBs data into a single array of rows
   const rows = Object.values(ibs).map((ib) => ({
@@ -27,6 +30,7 @@ const IBList = () => {
     date: ib.date.split("T")[0],
     flavor: ib.flavor,
     architecture: ib.architecture,
+    packages: ib.packages,
   }));
 
   // Filter rows by IB Name
@@ -35,6 +39,14 @@ const IBList = () => {
       .toLowerCase()
       .includes(filter.toLowerCase())
   );
+
+  // Handle "Show Packages" button click
+  const handleShowPackages = (ib) => {
+    navigate(`/ib/${ib.version}/${ib.architecture}/packages`, {
+      state: { ib },
+    });
+    window.scrollTo(0, 0); // Scroll to the top of the page
+  };
 
   // Sort filtered rows by version in descending order (newest first)
   const sortedRows = filteredRows.sort((a, b) => {
@@ -96,6 +108,15 @@ const IBList = () => {
               >
                 Architecture
               </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                }}
+              >
+                Packages
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,9 +131,16 @@ const IBList = () => {
                   {row.version}_{row.flavor}_X_{row.date}
                 </TableCell>
                 <TableCell align="center">
-                  <Link to={`/ib/${row.version}/${row.architecture}/packages`}>
-                    {row.architecture}
-                  </Link>
+                  {row.architecture}
+                </TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#1e59ae", marginLeft: "10px" }}
+                    onClick={() => handleShowPackages(row)}
+                  >
+                    Show Packages
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
