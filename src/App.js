@@ -2,18 +2,14 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import DateList from "./components/IBs/DateList";
-import FlavorList from "./components/IBs/FlavorList";
-import ArchitectureList from "./components/IBs/ArchitectureList";
 import About from "./components/HeaderBar/About";
 import PackageList from "./components/Packages/PackageList";
 import PackageDetails from "./components/Packages/PackageDetails";
 import Layout from "./components/HeaderBar/Layout";
 import { DataProvider } from './contexts/DataContext';
-import ArchitecturePage from "./components/Releases/ArchitecturePage";
 import Homepage from "./components/Homepage/Homepage";
 import SearchResults from "./components/Homepage/Search/SearchResults";
-import SearchResultPackages from "./components/Packages/SearchResultPackages";
+import SearchResultPackages from "./components/Homepage/Search/SearchResultPackages";
 
 function App() {
 
@@ -28,18 +24,14 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/about" element={<About />} />
               <Route path="/searchResults" element={<SearchResults />} />
+              <Route path="/search/:version/:architecture/packages" element={<SearchResultPackages/>} />
 
               {/* IBs */}
-              <Route path="/:version/dates" element={<DateList />} />
-              <Route path="/:version/flavors/:date" element={<FlavorList />} />
-              <Route path="/IB/:version/:date/architectures/:flavor" element={<ArchitectureList />} />
-              <Route path="/IB/:version/:architecture/packages" element={<PackageList type="IB"/>} />
-              <Route path="/search/:version/:architecture/packages" element={<SearchResultPackages/>} />
-              <Route path="/packageDetails/:packageName" element={<PackageDetails />} />
+              <Route path="/:packageName/packageDetails" element={<PackageDetails />} />
+              <Route path="/ib/:version/:architecture/packages" element={<PackageList type="IB"/>} />
 
               {/* Releases */}
-              <Route path="/architecture/:releaseName" element={<ArchitecturePage />} />
-              <Route path="/release/packages/:architecture" element={<PackageList type="Release"/>} />
+              <Route path="/release/:architecture/packages" element={<PackageList type="Release"/>} />
  
             </Routes>
           </div>

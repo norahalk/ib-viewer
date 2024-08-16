@@ -53,22 +53,38 @@ const SearchResults = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell
-                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                          textAlign: "center",
+                        }}
                       >
                         Version
                       </TableCell>
                       <TableCell
-                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                          textAlign: "center",
+                        }}
                       >
                         Flavor
                       </TableCell>
                       <TableCell
-                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                          textAlign: "center",
+                        }}
                       >
                         Date
                       </TableCell>
                       <TableCell
-                        sx={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                          textAlign: "center",
+                        }}
                       >
                         Architecture
                       </TableCell>

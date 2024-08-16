@@ -91,7 +91,7 @@ const Packages = ({ type }) => {
                   }}
                 >
                   <TableCell>
-                    <Link to={`/packageDetails/${packageName}`}>
+                    <Link to={`/${packageName}/packageDetails`}>
                       {packageName}
                     </Link>
                   </TableCell>

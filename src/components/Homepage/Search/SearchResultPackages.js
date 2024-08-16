@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -43,7 +43,14 @@ const SearchResultPackages = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px' }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "20px",
+      }}
+    >
       <Typography variant="h4" gutterBottom>
         Packages used in <strong>{architecture}</strong>
       </Typography>
@@ -59,8 +66,12 @@ const SearchResultPackages = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Package Name</strong></TableCell>
-              <TableCell><strong>Version</strong></TableCell>
+              <TableCell>
+                <strong>Package Name</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Version</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,7 +84,12 @@ const SearchResultPackages = () => {
                     backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
                   }}
                 >
-                  <TableCell>{packageName}</TableCell>
+                  <TableCell>
+                    <Link to={`/${packageName}/packageDetails`}>
+                      {" "}
+                      {packageName}
+                    </Link>
+                  </TableCell>
                   <TableCell>{packageVersion}</TableCell>
                 </TableRow>
               ))}

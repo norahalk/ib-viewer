@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import SearchBar from "./Search/SearchBar";
-import Releases from "../Releases/Releases";
-import IBs from "../IBs/IBs";
+import IBList from "../IBs/IBList";
+import ReleaseList from "../Releases/ReleaseList";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,10 +70,10 @@ const Homepage = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Releases />
+        <ReleaseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <IBs />
+        <IBList />
       </CustomTabPanel>
     </Box>
   );
