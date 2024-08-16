@@ -13,6 +13,7 @@ import { DataProvider } from './contexts/DataContext';
 import ArchitecturePage from "./components/Releases/ArchitecturePage";
 import Homepage from "./components/Homepage/Homepage";
 import SearchResults from "./components/Homepage/Search/SearchResults";
+import SearchResultPackages from "./components/Packages/SearchResultPackages";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
               <Route path="/:version/flavors/:date" element={<FlavorList />} />
               <Route path="/IB/:version/:date/architectures/:flavor" element={<ArchitectureList />} />
               <Route path="/IB/:version/:architecture/packages" element={<PackageList type="IB"/>} />
+              <Route path="/search/:version/:architecture/packages" element={<SearchResultPackages/>} />
               <Route path="/packageDetails/:packageName" element={<PackageDetails />} />
 
               {/* Releases */}

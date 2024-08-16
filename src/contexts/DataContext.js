@@ -11,7 +11,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchIbs = async () => {
       try {
-        const response = await axios.post("/api/searchIBs");
+        const response = await axios.post("/api/allIBs");
         setIbs(response.data);
       } catch (error) {
         console.error("Error fetching IBs data:", error);
@@ -20,7 +20,7 @@ export const DataProvider = ({ children }) => {
 
     const fetchReleases = async () => {
       try {
-        const response = await axios.post("/api/searchReleases");
+        const response = await axios.post("/api/allReleases");
         setReleases(response.data);
       } catch (error) {
         console.error("Error fetching Releases data:", error);

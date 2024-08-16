@@ -28,7 +28,7 @@ const Packages = ({ type }) => {
   );
 
   const [page, setPage] = useState(0); // Pagination state for current page
-  const [rowsPerPage, setRowsPerPage] = useState(5); // State for rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(10); // State for rows per page
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   if (!item) {

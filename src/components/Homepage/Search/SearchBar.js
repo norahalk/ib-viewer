@@ -1,33 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { TextField, Button, Container, FormControlLabel, Checkbox, FormGroup, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const [selectedOption, setSelectedOption] = useState(""); // State to track the selected checkbox
+  const [selectedOption, setSelectedOption] = useState("IBs"); // State to track the selected checkbox
   const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (query.trim() && selectedOption) {
-      const response = await fetch(`/search${selectedOption}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        // Handle the response data here, e.g., update state or pass to another component
-        navigate(`/searchResults`, { state: { results: data, filter: selectedOption } });
+    if (query.trim()) {
+      const [packageName, version] = query.split(':');
+      const payload = {
+        packageName: packageName.trim(),
+        version: version.trim(),
+        type: selectedOption, // 'IBs' or 'Releases'
+      };
+
+      try {
+        if (selectedOption === "IBs") {
+          const response = await axios.post('/api/searchIBs', payload);
+          navigate('/searchResults', { state: { results: response.data, query: query.trim(), index:"IBs"} });
+        } else if (selectedOption === "Releases") {
+          const response = await axios.post('/api/searchReleases', payload);
+          navigate('/searchResults', { state: { results: response.data, query: query.trim() ,index:"Releases"} });
+        }
+      } catch (error) {
+        console.error("Error during search:", error);
       }
     }
   };
 
   const handleCheckboxChange = (event) => {
-    // Update the selected option based on the checkbox clicked
     setSelectedOption(event.target.name);
   };
 
@@ -38,7 +44,7 @@ const SearchBar = () => {
           <TextField
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search Packages..."
+            placeholder="Search..."
             variant="outlined"
             fullWidth
             margin="normal"
@@ -52,7 +58,6 @@ const SearchBar = () => {
           </Button>
         </div>
 
-        {/* Checkbox Section */}
         <Box
           display="flex"
           justifyContent="center"
@@ -66,6 +71,7 @@ const SearchBar = () => {
                   checked={selectedOption === "IBs"}
                   onChange={handleCheckboxChange}
                   name="IBs"
+              
                 />
               }
               label="IBs"
