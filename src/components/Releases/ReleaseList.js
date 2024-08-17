@@ -8,40 +8,39 @@ import {
   Paper,
   TablePagination,
   TableHead,
-  TextField,
   Box,
   Button,
+  TextField,
 } from "@mui/material";
 import { DataContext } from "../../contexts/DataContext";
-import { useNavigate } from "react-router-dom"; // Hook for programmatic navigation
+import { useNavigate } from "react-router-dom";
 
-// Helper function to compare release versions
-const compareReleaseVersions = (a, b) => {
-  const parseVersion = (version) => version.split("_").slice(1).map(Number);
+// Helper function to parse release cycle from release name
+const parseReleaseCycle = (releaseName) => {
+  const match = releaseName.match(/CMSSW_(\d+)_(\d+)(?:_(\d+))?/);
+  if (match) {
+    const [, major, minor, patch] = match;
+    return [parseInt(major), parseInt(minor), parseInt(patch) || 0];
+  }
+  return [0, 0, 0]; // Default if parsing fails
+};
 
-  const [majorA, minorA, patchA] = parseVersion(a.release_cycle);
-  const [majorB, minorB, patchB] = parseVersion(b.release_cycle);
-
-  if (majorA !== majorB) return majorB - majorA;
-  if (minorA !== minorB) return minorB - minorA;
-  return patchB - patchA;
+// Function to compare two release cycles
+const compareReleaseCycles = (a, b) => {
+  const [aMajor, aMinor, aPatch] = parseReleaseCycle(a.release_name);
+  const [bMajor, bMinor, bPatch] = parseReleaseCycle(b.release_name);
+  if (aMajor !== bMajor) return bMajor - aMajor; // Descending order
+  if (aMinor !== bMinor) return bMinor - aMinor; // Descending order
+  return bPatch - aPatch; // Descending order
 };
 
 function ReleaseList() {
-  const { releases } = useContext(DataContext); // Get releases data from context
-  const [page, setPage] = useState(0); // State to track the current page
-  const [rowsPerPage, setRowsPerPage] = useState(10); // State to track rows per page
+  const { releases } = useContext(DataContext);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filter, setFilter] = useState(""); // State for filter input
 
-  const navigate = useNavigate(); // Initialize navigation hook
-
-  // Filter releases by release_cycle
-  const filteredReleases = releases.filter((release) =>
-    release.release_cycle.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  // Sort filtered releases by release_cycle in reverse chronological order
-  const sortedReleases = [...filteredReleases].sort(compareReleaseVersions);
+  const navigate = useNavigate();
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -54,30 +53,31 @@ function ReleaseList() {
     setPage(0);
   };
 
-  // Handle filter input change
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-  };
-
   // Handle "Show Packages" button click
   const handleShowPackages = (release) => {
     navigate(`/release/${release.architecture}/packages`, {
       state: { release },
     });
-    window.scrollTo(0, 0); // Scroll to the top of the page
-
+    window.scrollTo(0, 0);
   };
+
+  // Filter releases based on filter input
+  const filteredReleases = releases.filter((release) =>
+    release.release_name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  // Sort filtered releases by release cycle
+  const sortedReleases = filteredReleases.sort(compareReleaseCycles);
 
   return (
     <div>
-      <Box sx={{ marginBottom: "20px" }}>
+      <Box mb={2} p={2}>
         <TextField
-          label="Filter by Release Cycle"
+          label="Filter by Release Name"
           variant="outlined"
           fullWidth
           value={filter}
-          onChange={handleFilterChange}
-          placeholder="Enter Release Cycle"
+          onChange={(e) => setFilter(e.target.value)}
         />
       </Box>
       <TableContainer component={Paper}>
@@ -91,7 +91,7 @@ function ReleaseList() {
                   textAlign: "center",
                 }}
               >
-                Release Cycle
+                Release Name
               </TableCell>
               <TableCell
                 sx={{

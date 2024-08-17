@@ -35,7 +35,7 @@ const IBList = () => {
 
   // Filter rows by IB Name
   const filteredRows = rows.filter((row) =>
-    `${row.version}-${row.flavor}-${row.date}`
+    `${row.version}_${row.flavor}_X_${row.date}`
       .toLowerCase()
       .includes(filter.toLowerCase())
   );

@@ -31,9 +31,9 @@ const SearchResults = () => {
     setPage(0);
   };
 
-  const handleShowPackages = (version, architecture, packages) => {
+  const handleShowPackages = (version, flavor, date, architecture, packages) => {
     navigate(`/search/${version}/${architecture}/packages`, {
-      state: { packages, architecture },
+      state: { version, flavor, date, architecture, packages },
     });
   };
 
@@ -155,6 +155,8 @@ const SearchResults = () => {
                             onClick={() =>
                               handleShowPackages(
                                 result.version,
+                                result.flavor,
+                                result.date,
                                 result.architecture,
                                 result.packages
                               )
@@ -230,6 +232,8 @@ const SearchResults = () => {
                             onClick={() =>
                               handleShowPackages(
                                 result.version,
+                                result.flavor,
+                                result.date,
                                 result.architecture,
                                 result.packages
                               )

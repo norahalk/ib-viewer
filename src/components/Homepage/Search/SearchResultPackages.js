@@ -18,7 +18,7 @@ import {
 const SearchResultPackages = () => {
   const location = useLocation();
   const navigate = useNavigate(); // Hook to programmatically navigate
-  const { packages, architecture } = location.state; // Retrieve the packages and architecture from the state
+  const { version, flavor, date, architecture, packages } = location.state; // Retrieve the packages and architecture from the state
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -64,7 +64,9 @@ const SearchResultPackages = () => {
       }}
     >
       <Typography variant="h4" gutterBottom>
-        Packages used in <strong>{architecture}</strong>
+        Packages Used In <strong>{version}_{flavor}_X_{date}</strong>
+            <br/>
+            Architecture: <strong>{architecture}</strong>
       </Typography>
       <TextField
         label="Search Packages"
