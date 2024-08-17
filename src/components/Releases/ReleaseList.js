@@ -56,7 +56,7 @@ function ReleaseList() {
   // Handle "Show Packages" button click
   const handleShowPackages = (release) => {
     navigate(`/release/${release.architecture}/packages`, {
-      state: { release },
+      state: {packages: release.packages},
     });
     window.scrollTo(0, 0);
   };

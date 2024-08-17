@@ -43,7 +43,7 @@ const IBList = () => {
   // Handle "Show Packages" button click
   const handleShowPackages = (ib) => {
     navigate(`/ib/${ib.version}/${ib.architecture}/packages`, {
-      state: { ib },
+      state: { packages:ib.packages },
     });
     window.scrollTo(0, 0); // Scroll to the top of the page
   };
