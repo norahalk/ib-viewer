@@ -25,7 +25,7 @@ const SearchBar = () => {
     e.preventDefault();
 
     // Validate the query format
-    const queries = query.split("AND").map((q) => q.trim());
+    const queries = query.split(/AND/i).map((q) => q.trim());
     const isValid = queries.every((q) => /^[\w-]+ ?: ?[\w.-]+$/.test(q));
 
     if (!isValid) {
