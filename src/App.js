@@ -9,7 +9,6 @@ import Layout from "./components/HeaderBar/Layout";
 import { DataProvider } from './contexts/DataContext';
 import Homepage from "./components/Homepage/Homepage";
 import SearchResults from "./components/Homepage/Search/SearchResults";
-import SearchResultPackages from "./components/Homepage/Search/SearchResultPackages";
 
 function App() {
 
@@ -24,14 +23,16 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/about" element={<About />} />
               <Route path="/searchResults" element={<SearchResults />} />
-              <Route path="/search/:version/:architecture/packages" element={<SearchResultPackages/>} />
+              <Route path="/search/:version/:architecture/packages" element={<PackageList/>} />
+
+              {/* Packages */}
+              <Route path="/package/:packageName/packageDetails" element={<PackageDetails />} />
 
               {/* IBs */}
-              <Route path="/:packageName/packageDetails" element={<PackageDetails />} />
-              <Route path="/ib/:version/:architecture/packages" element={<PackageList type="IB"/>} />
+              <Route path="/ib/:version/:architecture/packages" element={<PackageList/>} />
 
               {/* Releases */}
-              <Route path="/release/:architecture/packages" element={<PackageList type="Release"/>} />
+              <Route path="/release/:releaseName/:architecture/packages" element={<PackageList/>} />
  
             </Routes>
           </div>

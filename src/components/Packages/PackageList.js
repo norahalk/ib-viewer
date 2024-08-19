@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -17,21 +17,20 @@ import {
 
 const PackageList = () => {
   const location = useLocation();
-  const { architecture } = useParams();
   const navigate = useNavigate();
 
   // Retrieve packages data from the location state
-  const { packages } = location.state || {}; 
+  const { type, data } = location.state || {};
 
   const [page, setPage] = useState(0); // Pagination state for current page
   const [rowsPerPage, setRowsPerPage] = useState(10); // State for rows per page
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
-  if (!packages) {
+  if (!data.packages) {
     return <div>No packages data found for this architecture</div>;
   }
 
-  const packagesArray = Object.entries(packages); // Convert packages object to array
+  const packagesArray = Object.entries(data.packages); // Convert packages object to array
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -52,9 +51,7 @@ const PackageList = () => {
 
   // Filter and sort packages based on search query, then sort them alphabetically
   const filteredPackages = packagesArray
-    .filter(([packageName]) =>
-      packageName.toLowerCase().includes(searchQuery)
-    )
+    .filter(([packageName]) => packageName.toLowerCase().includes(searchQuery))
     .sort(([packageNameA], [packageNameB]) =>
       packageNameA.localeCompare(packageNameB)
     );
@@ -66,11 +63,30 @@ const PackageList = () => {
 
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "50px" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "50px",
+      }}
     >
-      <Typography variant="h4" gutterBottom>
-        Packages used in <strong>{architecture}</strong>
-      </Typography>
+      {type === "IB" ? (
+        <Typography variant="h4" gutterBottom>
+          Packages Used In{" "}
+          <strong>
+            {data.version}_{data.flavor}_X_{data.date}
+          </strong>
+          <br />
+          Architecture: <strong>{data.architecture}</strong>
+        </Typography>
+      ) : (
+        <Typography variant="h4" gutterBottom>
+          Packages used in <strong>{data.release_name}</strong>
+          <br />
+          Architecture: <strong>{data.architecture}</strong>
+        </Typography>
+      )}
+
       <TextField
         label="Search Packages"
         variant="outlined"
@@ -83,9 +99,15 @@ const PackageList = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Package Name</strong></TableCell>
-              <TableCell><strong>Version</strong></TableCell>
-              <TableCell><strong>Package Description</strong></TableCell>
+              <TableCell>
+                <strong>Package Name</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Version</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Package Description</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

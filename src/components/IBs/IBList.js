@@ -6,12 +6,17 @@ import {
   TableContainer,
   TableRow,
   Paper,
-  Container,
-  TableHead,
   TablePagination,
-  TextField,
+  TableHead,
   Box,
   Button,
+  TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Hook for programmatic navigation
 import { DataContext } from "../../contexts/DataContext";
@@ -21,7 +26,8 @@ const IBList = () => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filter, setFilter] = useState(""); // State for filter input
-  
+  const [selectedArchitectures, setSelectedArchitectures] = useState([]); // State for selected architectures
+
   const navigate = useNavigate(); // Initialize navigation hook
 
   // Flatten IBs data into a single array of rows
@@ -34,16 +40,31 @@ const IBList = () => {
   }));
 
   // Filter rows by IB Name
-  const filteredRows = rows.filter((row) =>
-    `${row.version}_${row.flavor}_X_${row.date}`
-      .toLowerCase()
-      .includes(filter.toLowerCase())
-  );
+  const filteredRows = rows
+    .filter((row) =>
+      `${row.version}_${row.flavor}_X_${row.date}`
+        .toLowerCase()
+        .includes(filter.toLowerCase())
+    )
+    .filter(
+      (row) =>
+        selectedArchitectures.length === 0 ||
+        selectedArchitectures.includes(row.architecture)
+    );
+
+  // Handle architecture filter change
+  const handleArchitectureChange = (event) => {
+    const value = event.target.value;
+    setSelectedArchitectures(value);
+  };
+
+  // Get unique architectures for the filter menu
+  const architectures = [...new Set(ibs.map((ib) => ib.architecture))];
 
   // Handle "Show Packages" button click
   const handleShowPackages = (ib) => {
     navigate(`/ib/${ib.version}/${ib.architecture}/packages`, {
-      state: { packages:ib.packages },
+      state: { type: "IB", data: ib },
     });
     window.scrollTo(0, 0); // Scroll to the top of the page
   };
@@ -75,9 +96,9 @@ const IBList = () => {
   };
 
   return (
-    <Container>
-      <Box sx={{ marginBottom: "20px" }}>
-        <TextField
+    <div>
+      <Box mb={2} p={2} display="flex" alignItems="center">
+      <TextField
           label="Filter by IB Name"
           variant="outlined"
           fullWidth
@@ -85,6 +106,24 @@ const IBList = () => {
           onChange={handleFilterChange}
           placeholder="Enter IB Name"
         />
+        <FormControl sx={{ marginLeft: 2, minWidth: 200 }}>
+          <InputLabel>Architectures</InputLabel>
+          <Select
+            multiple
+            value={selectedArchitectures}
+            onChange={handleArchitectureChange}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {architectures.map((architecture) => (
+              <MenuItem key={architecture} value={architecture}>
+                <Checkbox
+                  checked={selectedArchitectures.includes(architecture)}
+                />
+                <ListItemText primary={architecture} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
       <TableContainer component={Paper}>
         <Table>
@@ -130,9 +169,7 @@ const IBList = () => {
                 <TableCell align="center">
                   {row.version}_{row.flavor}_X_{row.date}
                 </TableCell>
-                <TableCell align="center">
-                  {row.architecture}
-                </TableCell>
+                <TableCell align="center">{row.architecture}</TableCell>
                 <TableCell align="center">
                   <Button
                     variant="contained"
@@ -156,7 +193,7 @@ const IBList = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </TableContainer>
-    </Container>
+    </div>
   );
 };
 

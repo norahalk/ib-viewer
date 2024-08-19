@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -11,36 +11,29 @@ import {
   Box,
   Button,
   TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
 import { DataContext } from "../../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
-
-// Helper function to parse release cycle from release name
-const parseReleaseCycle = (releaseName) => {
-  const match = releaseName.match(/CMSSW_(\d+)_(\d+)(?:_(\d+))?/);
-  if (match) {
-    const [, major, minor, patch] = match;
-    return [parseInt(major), parseInt(minor), parseInt(patch) || 0];
-  }
-  return [0, 0, 0]; // Default if parsing fails
-};
-
-// Function to compare two release cycles
-const compareReleaseCycles = (a, b) => {
-  const [aMajor, aMinor, aPatch] = parseReleaseCycle(a.release_name);
-  const [bMajor, bMinor, bPatch] = parseReleaseCycle(b.release_name);
-  if (aMajor !== bMajor) return bMajor - aMajor; // Descending order
-  if (aMinor !== bMinor) return bMinor - aMinor; // Descending order
-  return bPatch - aPatch; // Descending order
-};
 
 function ReleaseList() {
   const { releases } = useContext(DataContext);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [filter, setFilter] = useState(""); // State for filter input
+  const [filter, setFilter] = useState("");
+  const [selectedArchitectures, setSelectedArchitectures] = useState([]); // State for selected architectures
 
   const navigate = useNavigate();
+
+  // Reset page to 0 whenever the filter changes
+  useEffect(() => {
+    setPage(0);
+  }, [filter]);
 
   // Handle change in page number
   const handleChangePage = (event, newPage) => {
@@ -56,22 +49,36 @@ function ReleaseList() {
   // Handle "Show Packages" button click
   const handleShowPackages = (release) => {
     navigate(`/release/${release.architecture}/packages`, {
-      state: {packages: release.packages},
+      state: { type: "Releases", data: release },
     });
     window.scrollTo(0, 0);
   };
 
-  // Filter releases based on filter input
-  const filteredReleases = releases.filter((release) =>
-    release.release_name.toLowerCase().includes(filter.toLowerCase())
-  );
+  // Filter releases based on filter input and selected architectures
+  const filteredReleases = releases
+    .filter((release) =>
+      release.release_name.toLowerCase().includes(filter.toLowerCase())
+    )
+    .filter(
+      (release) =>
+        selectedArchitectures.length === 0 ||
+        selectedArchitectures.includes(release.architecture)
+    );
 
-  // Sort filtered releases by release cycle
-  const sortedReleases = filteredReleases.sort(compareReleaseCycles);
+  // Handle architecture filter change
+  const handleArchitectureChange = (event) => {
+    const value = event.target.value;
+    setSelectedArchitectures(value);
+  };
+
+  // Get unique architectures for the filter menu
+  const architectures = [
+    ...new Set(releases.map((release) => release.architecture)),
+  ];
 
   return (
     <div>
-      <Box mb={2} p={2}>
+      <Box mb={2} p={2} display="flex" alignItems="center">
         <TextField
           label="Filter by Release Name"
           variant="outlined"
@@ -79,6 +86,24 @@ function ReleaseList() {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
+        <FormControl sx={{ marginLeft: 2, minWidth: 200 }}>
+          <InputLabel>Architectures</InputLabel>
+          <Select
+            multiple
+            value={selectedArchitectures}
+            onChange={handleArchitectureChange}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {architectures.map((architecture) => (
+              <MenuItem key={architecture} value={architecture}>
+                <Checkbox
+                  checked={selectedArchitectures.includes(architecture)}
+                />
+                <ListItemText primary={architecture} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
       <TableContainer component={Paper}>
         <Table>
@@ -114,7 +139,7 @@ function ReleaseList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedReleases
+            {filteredReleases
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((release) => (
                 <TableRow key={release.release_name}>
@@ -136,7 +161,7 @@ function ReleaseList() {
       </TableContainer>
       <TablePagination
         component="div"
-        count={sortedReleases.length}
+        count={filteredReleases.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
