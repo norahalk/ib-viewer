@@ -23,7 +23,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/about" element={<About />} />
               <Route path="/searchResults" element={<SearchResults />} />
-              <Route path="/search/:version/:architecture/packages" element={<PackageList/>} />
+              <Route path="/search/:releaseName/:architecture/packages" element={<PackageList/>} />
 
               {/* Packages */}
               <Route path="/package/:packageName/packageDetails" element={<PackageDetails />} />

@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import SearchBar from "./Search/SearchBar";
 import IBList from "../IBs/IBList";
 import ReleaseList from "../Releases/ReleaseList";
+import CompareIBsAndReleases from "../Comparison/CompareIBsAndReleases";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,6 +68,7 @@ const Homepage = () => {
         >
           <Tab label="Releases" {...a11yProps(1)} />
           <Tab label="IBs" {...a11yProps(0)} />
+          <Tab label="compare" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -74,6 +76,9 @@ const Homepage = () => {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <IBList />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        <CompareIBsAndReleases />
       </CustomTabPanel>
     </Box>
   );

@@ -32,8 +32,8 @@ const SearchResults = () => {
   };
 
   const handleShowPackages = (result) => {
-    navigate(`/search/${result.version}/${result.architecture}/packages`, {
-      state: { data:result},
+    navigate(`/search/${result.release_name}/${result.architecture}/packages`, {
+      state: { data: result },
     });
   };
 
@@ -152,11 +152,7 @@ const SearchResults = () => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={() =>
-                              handleShowPackages(
-                                result
-                              )
-                            }
+                            onClick={() => handleShowPackages(result)}
                           >
                             Show Packages
                           </Button>
@@ -227,11 +223,7 @@ const SearchResults = () => {
                             color="primary"
                             onClick={() =>
                               handleShowPackages(
-                                result.version,
-                                result.flavor,
-                                result.date,
-                                result.architecture,
-                                result.packages
+                                result
                               )
                             }
                           >

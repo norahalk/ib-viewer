@@ -15,7 +15,9 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [selectedOption, setSelectedOption] = useState("IBs");
   const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState("Example search query: root : 6.32.03");
+  const [helperText, setHelperText] = useState(
+    "Example search query: root:6.32.03 AND anotherPkg:1.0.0"
+  );
 
   const navigate = useNavigate();
 
@@ -23,21 +25,31 @@ const SearchBar = () => {
     e.preventDefault();
 
     // Validate the query format
-    if (!/^[\w-]+ ?: ?[\w.-]+$/.test(query.trim())) {
+    const queries = query.split("AND").map((q) => q.trim());
+    const isValid = queries.every((q) => /^[\w-]+ ?: ?[\w.-]+$/.test(q));
+
+    if (!isValid) {
       setError(true);
-      setHelperText("Invalid format. Please use: packageName : packageVersion");
+      setHelperText(
+        "Invalid format. Please use: packageName:packageVersion AND ..."
+      );
       return;
     }
 
     // Reset error state if the query is valid
     setError(false);
-    setHelperText("Example search query: root : 6.32.03");
+    setHelperText(
+      "Example search query: root:6.32.03 AND anotherPkg:1.0.0"
+    );
 
-    const [packageName, version] = query.split(":").map((s) => s.trim());
+    // Split each query into package name and version
+    const packages = queries.map((q) => {
+      const [packageName, version] = q.split(":").map((s) => s.trim());
+      return { packageName, version };
+    });
 
     const payload = {
-      packageName,
-      version,
+      packages, // Array of { packageName, version }
       type: selectedOption, // 'IBs' or 'Releases'
     };
 
@@ -46,12 +58,20 @@ const SearchBar = () => {
       if (selectedOption === "IBs") {
         response = await axios.post("/api/searchIBs", payload);
         navigate("/searchResults", {
-          state: { results: response.data, query: query.trim(), index: "IBs" },
+          state: {
+            results: response.data,
+            query: query.trim(),
+            index: "IBs",
+          },
         });
       } else if (selectedOption === "Releases") {
         response = await axios.post("/api/searchReleases", payload);
         navigate("/searchResults", {
-          state: { results: response.data, query: query.trim(), index: "Releases" },
+          state: {
+            results: response.data,
+            query: query.trim(),
+            index: "Releases",
+          },
         });
       }
     } catch (error) {
@@ -86,12 +106,7 @@ const SearchBar = () => {
           </Button>
         </div>
 
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          mt={2}
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
           <FormGroup row>
             <FormControlLabel
               control={
