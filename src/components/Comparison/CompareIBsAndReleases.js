@@ -1,208 +1,200 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { DataContext } from "../../contexts/DataContext";
 import {
-  Button,
-  TextField,
-  MenuItem,
-  Grid,
   Box,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  ListSubheader,
+  TextField,
+  InputAdornment,
+  Button,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableHead,
   TableRow,
   Paper,
-  TableHead,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
+// Function to filter options based on search text
+const containsText = (text, searchText) =>
+  text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
 
 const CompareIBsAndReleases = () => {
   const { ibs, releases } = useContext(DataContext);
-  const [selectedIb, setSelectedIb] = useState("");
-  const [selectedRelease, setSelectedRelease] = useState("");
-  const [comparisonData, setComparisonData] = useState(null);
+
+  // Combine IBs and Releases into one array for the dropdowns
+  const allOptions = useMemo(() => [
+    ...ibs.map((ib) => `IB: ${ib.version}_${ib.flavor}_${ib.date}`),
+    ...releases.map((release) => `Release: ${release.release_name}`),
+  ], [ibs, releases]);
+
+  const [selectedOption1, setSelectedOption1] = useState(allOptions[0]);
+  const [selectedOption2, setSelectedOption2] = useState(allOptions[1]);
+  const [searchText1, setSearchText1] = useState("");
+  const [searchText2, setSearchText2] = useState("");
+  const [showTable, setShowTable] = useState(false); // State to manage table visibility
+
+  const displayedOptions1 = useMemo(
+    () => allOptions.filter((option) => containsText(option, searchText1)),
+    [searchText1, allOptions]
+  );
+
+  const displayedOptions2 = useMemo(
+    () => allOptions.filter((option) => containsText(option, searchText2)),
+    [searchText2, allOptions]
+  );
 
   const handleCompare = () => {
-    if (selectedIb && selectedRelease) {
-      const ibData = ibs.find((ib) => ib.version === selectedIb);
-      const releaseData = releases.find(
-        (release) => release.release_name === selectedRelease
-      );
-
-      if (ibData && releaseData) {
-        setComparisonData({ ibData, releaseData });
-      } else {
-        console.error("No matching data found for IB or Release.");
-        setComparisonData(null);
-      }
-    }
+    setShowTable(true); // Show the table when comparing
   };
 
   return (
-    <div>
-      <TextField
-        select
-        label="Choose an IB"
-        value={selectedIb}
-        onChange={(e) => setSelectedIb(e.target.value)}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      >
-        {ibs.length > 0 ? (
-          ibs.map((ib) => (
-            <MenuItem key={ib.version} value={ib.version}>
-              {ib.version}_{ib.flavor}_{ib.date}
+    <Box sx={{ p: 2 }}>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id="select-label-1">Select IB/Release</InputLabel>
+        <Select
+          MenuProps={{ autoFocus: false }}
+          labelId="select-label-1"
+          id="search-select-1"
+          value={selectedOption1}
+          label="Select IB/Release"
+          onChange={(e) => setSelectedOption1(e.target.value)}
+          onClose={() => setSearchText1("")}
+          renderValue={() => selectedOption1}
+        >
+          <ListSubheader>
+            <TextField
+              size="small"
+              autoFocus
+              placeholder="Type to search..."
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => setSearchText1(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key !== "Escape") {
+                  e.stopPropagation();
+                }
+              }}
+            />
+          </ListSubheader>
+          {displayedOptions1.map((option, i) => (
+            <MenuItem key={i} value={option}>
+              {option}
             </MenuItem>
-          ))
-        ) : (
-          <MenuItem disabled>No IBs available</MenuItem>
-        )}
-      </TextField>
+          ))}
+        </Select>
+      </FormControl>
 
-      <TextField
-        select
-        label="Choose a Release"
-        value={selectedRelease}
-        onChange={(e) => setSelectedRelease(e.target.value)}
-        variant="outlined"
-        fullWidth
-        margin="normal"
-      >
-        {releases.length > 0 ? (
-          releases.map((release) => (
-            <MenuItem key={release.release_name} value={release.release_name}>
-              {release.release_name}
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id="select-label-2">Select IB/Release</InputLabel>
+        <Select
+          MenuProps={{ autoFocus: false }}
+          labelId="select-label-2"
+          id="search-select-2"
+          value={selectedOption2}
+          label="Select IB/Release"
+          onChange={(e) => setSelectedOption2(e.target.value)}
+          onClose={() => setSearchText2("")}
+          renderValue={() => selectedOption2}
+        >
+          <ListSubheader>
+            <TextField
+              size="small"
+              autoFocus
+              placeholder="Type to search..."
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => setSearchText2(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key !== "Escape") {
+                  e.stopPropagation();
+                }
+              }}
+            />
+          </ListSubheader>
+          {displayedOptions2.map((option, i) => (
+            <MenuItem key={i} value={option}>
+              {option}
             </MenuItem>
-          ))
-        ) : (
-          <MenuItem disabled>No Releases available</MenuItem>
-        )}
-      </TextField>
+          ))}
+        </Select>
+      </FormControl>
 
       <Button
         variant="contained"
         style={{ backgroundColor: "#1e59ae", marginTop: "10px" }}
-        onClick={handleCompare}
+        onClick={handleCompare} // Call handleCompare on button click
       >
         Compare
       </Button>
 
-      {comparisonData && (
-        <Grid container spacing={2} style={{ marginTop: "20px" }}>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                border: 1,
-                borderColor: "grey.400",
-                borderRadius: 2,
-                padding: 2,
-              }}
-            >
-              <h2>IB: {comparisonData.ibData.version}_{comparisonData.ibData.flavor}_{comparisonData.ibData.date}</h2>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          textAlign: "center",
-                        }}
-                      >IB Name</TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          textAlign: "center",
-                        }}
-                      >Architecture</TableCell>
-                      {/* <TableCell
-                sx={{
+      {/* Render the comparison table if showTable is true */}
+      {showTable && (
+        <TableContainer component={Paper} sx={{ mt: 3 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{
                   fontWeight: "bold",
                   fontSize: "1.1rem",
                   textAlign: "center",
-                }}
-              >Packages</TableCell> */}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center">
-                        {comparisonData.ibData.version}_{
-                          comparisonData.ibData.flavor
-                        }_X_{comparisonData.ibData.date.split("T")[0]}
-                      </TableCell>
-                      <TableCell align="center">
-                        {comparisonData.ibData.architecture}
-                      </TableCell>
-                      <TableCell align="center">
-                        {comparisonData.ibData.packages.length}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Grid>
+                }}>Packages</TableCell>
+                <TableCell sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                }}>{selectedOption1}</TableCell>
+                <TableCell sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                }}>{selectedOption2}</TableCell>
+              </TableRow>
+            </TableHead>
 
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                border: 1,
-                borderColor: "grey.400",
-                borderRadius: 2,
-                padding: 2,
-              }}
-            >
-              <h2>Release: {comparisonData.releaseData.release_name}</h2>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          textAlign: "center",
-                        }}
-                      >Release Name</TableCell>
-                      <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          textAlign: "center",
-                        }}
-                      >Architecture</TableCell>
-                      {/* <TableCell
-                        sx={{
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                          textAlign: "center",
-                        }}
-                      >Packages</TableCell> */}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center">
-                        {comparisonData.releaseData.release_name}
-                      </TableCell>
-                      <TableCell align="center">
-                        {comparisonData.releaseData.architecture}
-                      </TableCell>
-                      {/* <TableCell align="center">
-                        {comparisonData.releaseData.packages.length}
-                      </TableCell> */}
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Grid>
-        </Grid>
+            <TableBody>
+              <TableRow>
+                {selectedOption1.includes("Release") ? <TableCell sx={{
+                  textAlign: "center",
+                }}>release</TableCell> : <TableCell sx={{
+                  textAlign: "center",
+                }}>ib</TableCell>}
+
+                {selectedOption1.includes("Release") ? <TableCell sx={{
+                  textAlign: "center",
+                }}>release</TableCell> : <TableCell sx={{
+                  textAlign: "center",
+                }}>ib</TableCell>}
+
+                {selectedOption2.includes("Release") ? <TableCell sx={{
+                  textAlign: "center",
+                }}>release</TableCell> : <TableCell sx={{
+                  textAlign: "center",
+                }}>ib</TableCell>}
+              </TableRow>
+
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -32,9 +32,16 @@ const SearchResults = () => {
   };
 
   const handleShowPackages = (result) => {
-    navigate(`/search/${result.release_name}/${result.architecture}/packages`, {
-      state: { data: result },
-    });
+    if (index === "IBs") {
+      navigate(`/search/${result.version}/${result.architecture}/packages`, {
+        state: { data: result, type: "IB" },
+      });
+    }
+    else {
+      navigate(`/search/${result.release_name}/${result.architecture}/packages`, {
+        state: { data: result, type: "Releases" },
+      });
+    }
   };
 
   const currentRows = results.slice(
