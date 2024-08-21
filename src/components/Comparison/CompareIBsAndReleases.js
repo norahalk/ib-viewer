@@ -1,4 +1,5 @@
 import React, { useContext, useState, useMemo } from "react";
+import axios from "axios"; // Import axios for making HTTP requests
 import { DataContext } from "../../contexts/DataContext";
 import {
   Box,
@@ -28,16 +29,23 @@ const CompareIBsAndReleases = () => {
   const { ibs, releases } = useContext(DataContext);
 
   // Combine IBs and Releases into one array for the dropdowns
-  const allOptions = useMemo(() => [
-    ...ibs.map((ib) => `IB: ${ib.version}_${ib.flavor}_${ib.date}`),
-    ...releases.map((release) => `Release: ${release.release_name}`),
-  ], [ibs, releases]);
+  const allOptions = useMemo(
+    () => [
+      ...ibs.map(
+        (ib) => `IB: ${ib.version}_${ib.flavor}_${ib.date}_${ib.architecture}`
+      ),
+      ...releases.map((release) => `Release: ${release.release_name}`),
+    ],
+    [ibs, releases]
+  );
 
   const [selectedOption1, setSelectedOption1] = useState(allOptions[0]);
   const [selectedOption2, setSelectedOption2] = useState(allOptions[1]);
   const [searchText1, setSearchText1] = useState("");
   const [searchText2, setSearchText2] = useState("");
-  const [showTable, setShowTable] = useState(false); // State to manage table visibility
+  const [showTable, setShowTable] = useState(false);
+  const [packageData1, setPackageData1] = useState([]);
+  const [packageData2, setPackageData2] = useState([]);
 
   const displayedOptions1 = useMemo(
     () => allOptions.filter((option) => containsText(option, searchText1)),
@@ -49,8 +57,45 @@ const CompareIBsAndReleases = () => {
     [searchText2, allOptions]
   );
 
-  const handleCompare = () => {
-    setShowTable(true); // Show the table when comparing
+  const fetchPackageData = async (selectedOption) => {
+    if (selectedOption.includes("IB")) {
+      // Regular expression to match the IB pattern with architecture
+      const regex = /^IB: CMSSW_(\d+_\d+)_([A-Z0-9]+)_X_(\d{4}-\d{2}-\d{2}-\d{4})_([a-z0-9_]+)$/;
+      const match = selectedOption.match(regex);
+      console.log("Matched IB data:", match);
+
+      if (match) {
+        const version = `CMSSW_${match[1]}`;
+        const flavor = match[2];
+        const date = match[3];
+        const architecture = match[4];
+  
+        try {
+          const response = await axios.post("/searchPackages", {
+            version,
+            date,
+            flavor,
+            architecture,
+          });
+  
+          return response.data;
+        } catch (error) {
+          console.error("Error fetching package data:", error);
+          return [];
+        }
+      }
+    }
+  
+    return [];
+  };
+  
+  const handleCompare = async () => {
+    const data1 = await fetchPackageData(selectedOption1);
+    const data2 = await fetchPackageData(selectedOption2);
+
+    setPackageData1(data1);
+    setPackageData2(data2);
+    setShowTable(true);
   };
 
   return (
@@ -140,56 +185,60 @@ const CompareIBsAndReleases = () => {
       <Button
         variant="contained"
         style={{ backgroundColor: "#1e59ae", marginTop: "10px" }}
-        onClick={handleCompare} // Call handleCompare on button click
+        onClick={handleCompare}
       >
         Compare
       </Button>
 
-      {/* Render the comparison table if showTable is true */}
       {showTable && (
         <TableContainer component={Paper} sx={{ mt: 3 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                  textAlign: "center",
-                }}>Packages</TableCell>
-                <TableCell sx={{
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                  textAlign: "center",
-                }}>{selectedOption1}</TableCell>
-                <TableCell sx={{
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                  textAlign: "center",
-                }}>{selectedOption2}</TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                  }}
+                >
+                  Packages
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                  }}
+                >
+                  {selectedOption1}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "1.1rem",
+                    textAlign: "center",
+                  }}
+                >
+                  {selectedOption2}
+                </TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              <TableRow>
-                {selectedOption1.includes("Release") ? <TableCell sx={{
-                  textAlign: "center",
-                }}>release</TableCell> : <TableCell sx={{
-                  textAlign: "center",
-                }}>ib</TableCell>}
-
-                {selectedOption1.includes("Release") ? <TableCell sx={{
-                  textAlign: "center",
-                }}>release</TableCell> : <TableCell sx={{
-                  textAlign: "center",
-                }}>ib</TableCell>}
-
-                {selectedOption2.includes("Release") ? <TableCell sx={{
-                  textAlign: "center",
-                }}>release</TableCell> : <TableCell sx={{
-                  textAlign: "center",
-                }}>ib</TableCell>}
-              </TableRow>
-
+              {packageData1.map((pkg1, index) => (
+                <TableRow key={index}>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {pkg1.package_name}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {pkg1.version}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {packageData2[index]?.version || "N/A"}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
