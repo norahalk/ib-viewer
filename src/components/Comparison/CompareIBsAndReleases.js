@@ -1,5 +1,5 @@
 import React, { useContext, useState, useMemo } from "react";
-import axios from "axios"; // Import axios for making HTTP requests
+import axios from "axios";
 import { DataContext } from "../../contexts/DataContext";
 import {
   Box,
@@ -18,17 +18,16 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TablePagination
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-// Function to filter options based on search text
 const containsText = (text, searchText) =>
   text.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
 
 const CompareIBsAndReleases = () => {
   const { ibs, releases } = useContext(DataContext);
 
-  // Combine IBs and Releases into one array for the dropdowns
   const allOptions = useMemo(
     () => [
       ...ibs.map(
@@ -43,9 +42,33 @@ const CompareIBsAndReleases = () => {
   const [selectedOption2, setSelectedOption2] = useState(allOptions[1]);
   const [searchText1, setSearchText1] = useState("");
   const [searchText2, setSearchText2] = useState("");
+  const [packageFilterText, setPackageFilterText] = useState(""); // New filter text state
   const [showTable, setShowTable] = useState(false);
-  const [packageData1, setPackageData1] = useState([]);
-  const [packageData2, setPackageData2] = useState([]);
+  const [packageData1, setPackageData1] = useState({});
+  const [packageData2, setPackageData2] = useState({});
+  const [currentPage, setCurrentPage] = useState(0); // Pagination state
+  const [rowsPerPage, setRowsPerPage] = useState(10); // Number of rows per page
+
+  // Calculate the data to display on the current page
+  const paginatedData = useMemo(() => {
+    const allPackageNames = Object.keys({ ...packageData1, ...packageData2 });
+    const filteredPackages = allPackageNames.filter(pkg =>
+      containsText(pkg, packageFilterText) // Filter packages based on the package filter text
+    );
+    return filteredPackages.slice(
+      currentPage * rowsPerPage,
+      currentPage * rowsPerPage + rowsPerPage
+    );
+  }, [packageData1, packageData2, currentPage, rowsPerPage, packageFilterText]);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
 
   const displayedOptions1 = useMemo(
     () => allOptions.filter((option) => containsText(option, searchText1)),
@@ -59,8 +82,7 @@ const CompareIBsAndReleases = () => {
 
   const fetchPackageData = async (selectedOption) => {
     if (selectedOption.includes("IB")) {
-      // Regular expression to match the IB pattern with architecture
-      const regex = /^IB: CMSSW_(\d+_\d+)_([A-Z0-9]+)_X_(\d{4}-\d{2}-\d{2}-\d{4})_([a-z0-9_]+)$/;
+      const regex = /^IB: CMSSW_(\d+_\d+)_([A-Z0-9]+)_(\d{4}-\d{2}-\d{2}-\d{4})_([a-z0-9_]+)$/;
       const match = selectedOption.match(regex);
       console.log("Matched IB data:", match);
 
@@ -69,33 +91,61 @@ const CompareIBsAndReleases = () => {
         const flavor = match[2];
         const date = match[3];
         const architecture = match[4];
-  
+
         try {
-          const response = await axios.post("/searchPackages", {
+          const response = await axios.post("/api/searchIBsPackages", {
             version,
             date,
             flavor,
             architecture,
           });
-  
+
           return response.data;
         } catch (error) {
           console.error("Error fetching package data:", error);
-          return [];
+          return {};
+        }
+      }
+    } else if (selectedOption.includes("Release")) {
+      const regex = /^Release: (.+)$/;
+      const match = selectedOption.match(regex);
+
+      if (match) {
+        const releaseName = match[1];
+
+        try {
+          const response = await axios.post("/api/searchReleasesPackages", {
+            release_name: releaseName,
+          });
+
+          return response.data;
+        } catch (error) {
+          console.error("Error fetching release package data:", error);
+          return {};
         }
       }
     }
-  
-    return [];
-  };
-  
-  const handleCompare = async () => {
-    const data1 = await fetchPackageData(selectedOption1);
-    const data2 = await fetchPackageData(selectedOption2);
 
-    setPackageData1(data1);
-    setPackageData2(data2);
-    setShowTable(true);
+    return {};
+  };
+
+  const handleCompare = async () => {
+    try {
+      const [data1, data2] = await Promise.all([
+        fetchPackageData(selectedOption1),
+        fetchPackageData(selectedOption2),
+      ]);
+  
+      if (data1 && data2) {
+        setPackageData1(data1);
+        setPackageData2(data2);
+        setShowTable(true);
+      } else {
+        console.error("One of the data sets is null:", { data1, data2 });
+      }
+    } catch (error) {
+      console.error("Error comparing data:", error);
+    }
   };
 
   return (
@@ -191,57 +241,81 @@ const CompareIBsAndReleases = () => {
       </Button>
 
       {showTable && (
-        <TableContainer component={Paper} sx={{ mt: 3 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: "1.1rem",
-                    textAlign: "center",
-                  }}
-                >
-                  Packages
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: "1.1rem",
-                    textAlign: "center",
-                  }}
-                >
-                  {selectedOption1}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                    fontSize: "1.1rem",
-                    textAlign: "center",
-                  }}
-                >
-                  {selectedOption2}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {packageData1.map((pkg1, index) => (
-                <TableRow key={index}>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {pkg1.package_name}
+        <Box sx={{ mt: 3 }}>
+          <TextField
+            fullWidth
+            placeholder="Filter Packages"
+            value={packageFilterText}
+            onChange={(e) => setPackageFilterText(e.target.value)} // Update filter text
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          
+          <TableContainer component={Paper} sx={{ mt: 2 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "1.1rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    Packages
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {pkg1.version}
+                  <TableCell
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "1.1rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    {selectedOption1}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center" }}>
-                    {packageData2[index]?.version || "N/A"}
+                  <TableCell
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: "1.1rem",
+                      textAlign: "center",
+                    }}
+                  >
+                    {selectedOption2}
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+
+              <TableBody>
+                {paginatedData.map((pkg, index) => (
+                  <TableRow key={index}>
+                    <TableCell sx={{ textAlign: "center" }}>{pkg}</TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
+                      {packageData1[pkg]}
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>
+                      {packageData2[pkg] || "N/A"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            {/* Pagination Controls */}
+            <TablePagination
+              component="div"
+              count={Object.keys({ ...packageData1, ...packageData2 }).filter(pkg => containsText(pkg, packageFilterText)).length} // Filter count for pagination
+              page={currentPage}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              rowsPerPageOptions={[5, 10, 25]}
+            />
+          </TableContainer>
+        </Box>
       )}
     </Box>
   );
