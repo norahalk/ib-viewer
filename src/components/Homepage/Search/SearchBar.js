@@ -16,7 +16,7 @@ const SearchBar = () => {
   const [selectedOption, setSelectedOption] = useState("IBs");
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState(
-    "Example search query: root:6.32.03 AND anotherPkg:1.0.0"
+    "Example search query: root:6.32.* AND anotherPkg:1.0.0 (wildcards allowed)"
   );
 
   const navigate = useNavigate();
@@ -24,14 +24,16 @@ const SearchBar = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    // Validate the query format
+    // Split the input into individual queries based on 'AND'
     const queries = query.split(/AND/i).map((q) => q.trim());
-    const isValid = queries.every((q) => /^[\w-]+ ?: ?[\w.-]+$/.test(q));
+    
+    // Updated regular expression to allow wildcards correctly
+    const isValid = queries.every((q) => /^[\w-]+ ?: ?[\w.-]*\*$/.test(q) || /^[\w-]+ ?: ?[\w.-]+$/.test(q));
 
     if (!isValid) {
       setError(true);
       setHelperText(
-        "Invalid format. Please use: packageName:packageVersion AND ..."
+        "Invalid format. Please use: packageName:packageVersion (wildcards allowed)"
       );
       return;
     }
@@ -39,7 +41,7 @@ const SearchBar = () => {
     // Reset error state if the query is valid
     setError(false);
     setHelperText(
-      "Example search query: root:6.32.03 AND anotherPkg:1.0.0"
+      "Example search query: root:6.32.* AND anotherPkg:1.0.0 (wildcards allowed)"
     );
 
     // Split each query into package name and version
